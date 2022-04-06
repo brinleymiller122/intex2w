@@ -61,10 +61,19 @@
 
         @if (SignInManager.IsSignedIn(User))
         {
-            <div class="text-center mt-2">
-                <a asp-controller="Home" asp-action="Edit">Add New Accident</a>
-                <input class="btn btn-primary" type="submit" value="Submit" />
-            </div>
+            if (User.IsInRole("Administrator"))
+            {
+                <div class="text-center mt-2">
+                    <a asp-controller="Home" asp-action="Edit" class="btn btn-primary">Add New Accident</a>
+                    <input class="btn btn-primary" type="submit" value="Submit" />
+                </div>
+            }
+            else
+            {
+                <div class="text-center mt-2">
+                    <input class="btn btn-primary" type="submit" value="Submit" />
+                </div>
+            }
         }
         else
         {
@@ -185,21 +194,24 @@
 
                                 @if (SignInManager.IsSignedIn(User))
                                 {
-                                    <div class="flex-1">
-                                        <h4>Administrative Actions</h4>
-                                        <div class="flex-2">
-                                            <form method="get" asp-action="Edit" asp-controller="Home">
-                                                <input type="hidden" name="CRASH_ID" value="@(crash.CRASH_ID)" />
-                                                <input type="submit" value="Edit Crash" class="btn btn-primary" />
-                                            </form>
-                                            <form method="get" asp-action="Delete" asp-controller="Home">
-                                                <input type="hidden" name="CRASH_ID" value="@(crash.CRASH_ID)" />
-                                                <input type="submit" value="Delete Crash Record" class="btn btn-danger" />
-                                            </form>
+                                    if (User.IsInRole("Administrator"))
+                                    {
+                                        <div class="flex-1">
+                                            <h4>Administrative Actions</h4>
+                                            <div class="flex-2">
+                                                <form method="get" asp-action="Edit" asp-controller="Home">
+                                                    <input type="hidden" name="CRASH_ID" value="@(crash.CRASH_ID)" />
+                                                    <input type="submit" value="Edit Crash" class="btn btn-primary" />
+                                                </form>
+                                                <form method="get" asp-action="Delete" asp-controller="Home">
+                                                    <input type="hidden" name="CRASH_ID" value="@(crash.CRASH_ID)" />
+                                                    <input type="submit" value="Delete Crash Record" class="btn btn-danger" />
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
                                 }
-                                </div>
+                            </div>
                         </td>
                     </tr>
                 }
