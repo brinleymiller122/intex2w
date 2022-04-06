@@ -1,0 +1,210 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Crash Summary";
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+<div>
+    <h3 class="text-center">Filter Crashes</h3>
+    <form method="get" asp-controller="Home" asp-action="Crashes" class="filter-whole-form" id="crash-filter-form">
+        <div class="filter-form">
+            <input type="hidden" name="page" id="pageNumber" />
+            <input placeholder="Date" type="date" name="date" value="@ViewBag.selectedDate?.ToString("yyyy-MM-dd")" />
+            <input placeholder="Time" />
+            <select name="city">
+                <option selected value="">-- Select A City --</option>
+                @foreach (var city in ViewBag.cities)
+                {
+                    if (city == ViewBag.selectedCity)
+                    {
+                        <option selected value="@city">@city</option>
+                    }
+                    else
+                    {
+                        <option value="@city">@city</option>
+                    }
+                }
+            </select>
+            <select name="county">
+                <option selected value="">-- Select A County --</option>
+                @foreach (var county in ViewBag.counties)
+                {
+                    if (county == ViewBag.selectedCounty)
+                    {
+                        <option value="@county" selected>@county</option>
+                    }
+                    else
+                    {
+                        <option value="@county">@county</option>
+                    }
+                }
+            </select>
+            <select name="severity">
+                <option selected value="">Severity</option>
+                @foreach (var severity in ViewBag.severity)
+                {
+                    if (severity == ViewBag.selectedSeverity)
+                    {
+                        <option selected value="@severity">@severity</option>
+                    }
+                    else
+                    {
+                        <option value="@severity">@severity</option>
+                    }
+                }
+            </select>
+        </div>
+
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class="text-center mt-2">
+                <a asp-controller="Home" asp-action="Edit">Add New Accident</a>
+                <input class="btn btn-primary" type="submit" value="Submit" />
+            </div>
+        }
+        else
+        {
+            <div class="text-center mt-2">
+                <input class="btn btn-primary" type="submit" value="Submit" />
+            </div>
+        }
+
+
+    </form>
+    <div>
+        <table class="table table-striped-custom table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Crash Date</th>
+                    <th>Crash Time</th>
+                    <th>City</th>
+                    <th>County</th>
+                    <th>Severity ID</th>
+                    <th>View Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var crash in ViewBag.crashes)
+                {
+                    <tr>
+                        <td>@crash.CRASH_DATE.ToShortDateString()</td>
+                        <td>@crash.CRASH_DATE.ToString("hh:mm tt")</td>
+                        <td>@crash.CITY</td>
+                        <td>@crash.COUNTY_NAME</td>
+                        <td>@crash.CRASH_SEVERITY_ID</td>
+                        <td><button class="btn btn-primary btn-no-margin" onclick="revealRow(@crash.CRASH_ID);">Details</button></td>
+                    </tr>
+                    <tr hidden id="hiddenRow@(crash.CRASH_ID)">
+                        <td colspan="6">
+                            <div class="mega-ultimate-super-edit-div">
+                                <div>
+                                    <ul>
+                                        @if (crash.WORK_ZONE_RELATED == "True")
+                                        {
+                                            <li>Crash occured in a work zone.</li>
+                                        }
+                                        @if (crash.PEDESTRIAN_INVOLVED)
+                                        {
+                                            <li>A pedestrian was involved.</li>
+                                        }
+                                        @if (crash.BICYCLIST_INVOLVED)
+                                        {
+                                            <li>A bicyclist was involved.</li>
+                                        }
+                                        @if (crash.MOTORCYCLE_INVOLVED)
+                                        {
+                                            <li>A motorcyclist was involved.</li>
+                                        }
+                                        @if (crash.IMPROPER_RESTRAINT)
+                                        {
+                                            <li>A seatbelt was not used properly.</li>
+                                        }
+                                        @if (crash.UNRESTRAINED)
+                                        {
+                                            <li>A seatbelt was not used.</li>
+                                        }
+                                        @if (crash.DUI)
+                                        {
+                                            <li>A driver was driving under the influence.</li>
+                                        }
+                                        @if (crash.INTERSECTION_RELATED)
+                                        {
+                                            <li>The crash occured in or near an intersection.</li>
+                                        }
+                                        @if (crash.WILD_ANIMAL_RELATED)
+                                        {
+                                            <li>A wild animal was involved.</li>
+                                        }
+                                        @if (crash.DOMESTIC_ANIMAL_RELATED)
+                                        {
+                                            <li>A domesticated animal was involved.</li>
+                                        }
+                                        @if (crash.OVERTURN_ROLLOVER)
+                                        {
+                                            <li>A vehicle was overturned or rolled.</li>
+                                        }
+                                        @if (crash.COMMERCIAL_MOTOR_VEH_INVOLVED)
+                                        {
+                                            <li>A commercial vehicle was involved.</li>
+                                        }
+                                        @if (crash.TEENAGE_DRIVER_INVOLVED)
+                                        {
+                                            <li>A teenage driver was involved.</li>
+                                        }
+                                        @if (crash.OLDER_DRIVER_INVOLVED)
+                                        {
+                                            <li>A driver over 64 was involved.</li>
+                                        }
+                                        @if (crash.NIGHT_DARK_CONDITION)
+                                        {
+                                            <li>The accident occured in the dark.</li>
+                                        }
+                                        @if (crash.SINGLE_VEHICLE)
+                                        {
+                                            <li>This accident involved only one vehicle.</li>
+                                        }
+                                        @if (crash.DISTRACTED_DRIVING)
+                                        {
+                                            <li>The driver was distracted.</li>
+                                        }
+                                        @if (crash.DROWSY_DRIVING)
+                                        {
+                                            <li>The driver was drowsy.</li>
+                                        }
+                                        @if (crash.ROADWAY_DEPARTURE)
+                                        {
+                                            <li>The vehicle was yeeted off of the roadway.</li>
+                                        }
+                                    </ul>
+                                    <button onclick="hideRow(@crash.CRASH_ID)" class="btn btn-secondary">Close Details</button>
+                                </div>
+
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <div class="flex-1">
+                                        <h4>Administrative Actions</h4>
+                                        <div class="flex-2">
+                                            <form method="get" asp-action="Edit" asp-controller="Home">
+                                                <input type="hidden" name="CRASH_ID" value="@(crash.CRASH_ID)" />
+                                                <input type="submit" value="Edit Crash" class="btn btn-primary" />
+                                            </form>
+                                            <form method="get" asp-action="Delete" asp-controller="Home">
+                                                <input type="hidden" name="CRASH_ID" value="@(crash.CRASH_ID)" />
+                                                <input type="submit" value="Delete Crash Record" class="btn btn-danger" />
+                                            </form>
+                                        </div>
+                                    </div>
+                                }
+                                </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="larger-pagination"><a onclick="pageBackwards(@ViewBag.page);">⬅</a>@ViewBag.page of @ViewBag.totalPages<a onclick="pageForward(@ViewBag.page);">➡</a></div>
+</div>

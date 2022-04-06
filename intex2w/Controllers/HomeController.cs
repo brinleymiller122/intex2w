@@ -1,5 +1,4 @@
 ﻿
-using INTEX.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -8,8 +7,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Globalization;
+using intex2w.Data;
+using intex2w.Models;
 
-namespace INTEX.Controllers
+namespace intex2w.Controllers
 {
     public class HomeController : Controller
     {
@@ -264,12 +265,17 @@ namespace INTEX.Controllers
             return View();
         }
 
-        
-        [HttpPost]
+        [HttpGet]
         public IActionResult Delete(int CRASH_ID)
         {
             Crash crash = _context.crashes.First(c => c.CRASH_ID == CRASH_ID);
-            _context.crashes.Remove(crash);
+            return View(crash);
+        }
+        [HttpPost]
+        public IActionResult Delete(int crashID, string y = "")
+        {
+            Crash c = _context.crashes.First(c => c.CRASH_ID == crashID);
+            _context.crashes.Remove(c);
             _context.SaveChanges();
             return RedirectToAction("Crashes");
         }

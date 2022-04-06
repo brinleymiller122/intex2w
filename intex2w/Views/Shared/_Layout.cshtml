@@ -1,44 +1,73 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+
+<!DOCTYPE html>
+<link href="~/css/site.css" rel="stylesheet" />
+<script src="~/js/site.js"></script>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - intex2w</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="~/img/favicon2.jpg" />
 </head>
 <body>
     <header>
+        <nav class="red navbar-expand-sm navbar-toggleable-lg navbar-light border-bottom box-shadow mb-5">
+            <a>Drive Safe Utah</a>
+
+        </nav>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">intex2w</a>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Crashes">Crashes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Prevention">Crash Prevention</a>
+                    </li>
+                </ul>
+
             </div>
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a class="btn btn-secondary float-right" href="/account/logout">Log Out</a>
+
+            }
+            else
+            {
+                <a class="btn btn-secondary float-right" asp-controller="Account" asp-action="Login">Login</a>
+            }
+
         </nav>
     </header>
+   
+
+
     <div class="container">
+ 
         <main role="main" class="pb-3">
+            <div><p class="text-white">.</p></div>
+            <partial name="_CookieConsentPartial" />
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - intex2w - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container text-center">
+            &copy; 2022 - DriveSafeUtah - <a href="~/img/GDPR-Privacy-Policy.pdf" target="_blank">Privacy Policy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

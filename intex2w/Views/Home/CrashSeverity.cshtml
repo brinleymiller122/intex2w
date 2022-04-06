@@ -1,0 +1,150 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Crash
+<div class="text-center">
+    <h3>Change an item to see how crash severity is impacted:</h3>
+    <form asp-controller="Home" asp-action="Edit" method="post">
+        <div asp-validation-summary="All"></div>
+        <div class="editForm">
+            <div class="editFormSubDiv">
+                <input asp-for="CRASH_DATETIME" value="@Model.CRASH_DATETIME" hidden />
+                <label asp-for="CRASH_DATE">Crash Date and Time:</label>
+                <input asp-for="CRASH_DATE" type="datetime-local" value="@Model.CRASH_DATE.ToString("yyyy-MM-ddThh:mm")" />
+                <label asp-for="CITY">City:</label>
+                <select asp-for="CITY">
+                    @foreach (var city in ViewBag.cities)
+                    {
+                        if (city == Model.CITY)
+                        {
+                            <option selected value="@city">@city</option>
+                        }
+                        else
+                        {
+                            <option value="@city">@city</option>
+                        }
+                    }
+                </select>
+                <label asp-for="COUNTY_NAME">County:</label>
+                <select asp-for="COUNTY_NAME">
+                    @foreach (var county in ViewBag.counties)
+                    {
+                        if (county == Model.COUNTY_NAME)
+                        {
+                            <option selected value="@county">@county</option>
+                        }
+                        else
+                        {
+                            <option value="@county">@county</option>
+                        }
+                    }
+                </select>
+                <label asp-for="LAT_UTM_Y">Latitude:</label>
+                <input asp-for="LAT_UTM_Y" value="@Model.LAT_UTM_Y" />
+                <label asp-for="LONG_UTM_X">Longitute</label>
+                <input asp-for="LONG_UTM_X" />
+                <label asp-for="CRASH_SEVERITY_ID">Crash Severity:</label>
+                <select asp-for="CRASH_SEVERITY_ID">
+                    @foreach (var severity in ViewBag.severity)
+                    {
+                        if (severity == Model.CRASH_SEVERITY_ID)
+                        {
+                            <option selected value="@severity">@severity</option>
+                        }
+                        else
+                        {
+                            <option value="@severity">@severity</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="editFormSubDiv">
+                <label asp-for="ROUTE">Route:</label>
+                <input asp-for="ROUTE" value="@Model.ROUTE" />
+                <label asp-for="MILEPOINT">Milepoint:</label>
+                <input asp-for="MILEPOINT" value="@Model.MILEPOINT" />
+                <div>
+                    <label asp-for="WORK_ZONE_BOOL">Work Zone Related:</label>
+                    <input asp-for="WORK_ZONE_BOOL" value="@Model.WORK_ZONE_BOOL" />
+                </div>
+                <div>
+                    <label asp-for="PEDESTRIAN_INVOLVED">Pedestrian Involved:</label>
+                    <input asp-for="PEDESTRIAN_INVOLVED" value="@Model.PEDESTRIAN_INVOLVED" />
+                </div>
+                <div>
+                    <label asp-for="BICYCLIST_INVOLVED">Bicyclist Involved:</label>
+                    <input asp-for="BICYCLIST_INVOLVED" value="@Model.BICYCLIST_INVOLVED" />
+                </div>
+                <div>
+                    <label asp-for="MOTORCYCLE_INVOLVED">Motorcycle Involved:</label>
+                    <input asp-for="MOTORCYCLE_INVOLVED" value="@Model.MOTORCYCLE_INVOLVED" />
+                </div>
+                <div>
+                    <label asp-for="IMPROPER_RESTRAINT">Improper Restraint:</label>
+                    <input asp-for="IMPROPER_RESTRAINT" value="@Model.IMPROPER_RESTRAINT" />
+                </div>
+                <div>
+                    <label asp-for="UNRESTRAINED">Unrestrained:</label>
+                    <input asp-for="UNRESTRAINED" value="@Model.UNRESTRAINED" />
+                </div>
+                <div>
+                    <label asp-for="DUI">DUI:</label>
+                    <input asp-for="DUI" value="@Model.DUI" />
+                </div>
+                <div>
+                    <label asp-for="INTERSECTION_RELATED">Intersection Related:</label>
+                    <input asp-for="INTERSECTION_RELATED" value="@Model.INTERSECTION_RELATED" />
+                </div>
+            </div>
+            <div class="editFormSubDiv">
+                <div>
+                    <label asp-for="WILD_ANIMAL_RELATED">Wild Animal Related:</label>
+                    <input asp-for="WILD_ANIMAL_RELATED" value="@Model.WILD_ANIMAL_RELATED" />
+                </div>
+                <div>
+                    <label asp-for="DOMESTIC_ANIMAL_RELATED">Domestic Animal Related:</label>
+                    <input asp-for="DOMESTIC_ANIMAL_RELATED" value="@Model.DOMESTIC_ANIMAL_RELATED" />
+                </div>
+                <div>
+                    <label asp-for="OVERTURN_ROLLOVER">Overturn/Rollover:</label>
+                    <input asp-for="OVERTURN_ROLLOVER" value="@Model.OVERTURN_ROLLOVER" />
+                </div>
+                <div>
+                    <label asp-for="COMMERCIAL_MOTOR_VEH_INVOLVED">Commercial Vehicle Involved:</label>
+                    <input asp-for="COMMERCIAL_MOTOR_VEH_INVOLVED" value="@Model.COMMERCIAL_MOTOR_VEH_INVOLVED" />
+                </div>
+                <div>
+                    <label asp-for="TEENAGE_DRIVER_INVOLVED">Teenage Driver Involved:</label>
+                    <input asp-for="TEENAGE_DRIVER_INVOLVED" value="@Model.TEENAGE_DRIVER_INVOLVED" />
+                </div>
+                <div>
+                    <label asp-for="OLDER_DRIVER_INVOLVED">Older Driver Involved:</label>
+                    <input asp-for="OLDER_DRIVER_INVOLVED" value="@Model.OLDER_DRIVER_INVOLVED" />
+                </div>
+                <div>
+                    <label asp-for="NIGHT_DARK_CONDITION">Nightime:</label>
+                    <input asp-for="NIGHT_DARK_CONDITION" value="@Model.NIGHT_DARK_CONDITION" />
+                </div>
+                <div>
+                    <label asp-for="SINGLE_VEHICLE">Single Vehicle Accident:</label>
+                    <input asp-for="SINGLE_VEHICLE" value="@Model.SINGLE_VEHICLE" />
+                </div>
+                <div>
+                    <label asp-for="DISTRACTED_DRIVING">Distracted Driving:</label>
+                    <input asp-for="DISTRACTED_DRIVING" value="@Model.DISTRACTED_DRIVING" />
+                </div>
+                <div>
+                    <label asp-for="DROWSY_DRIVING">Drowsy Driving:</label>
+                    <input asp-for="DROWSY_DRIVING" value="@Model.DROWSY_DRIVING" />
+                </div>
+                <div>
+                    <label asp-for="ROADWAY_DEPARTURE">Vehicle Left Roadway:</label>
+                    <input asp-for="ROADWAY_DEPARTURE" value="@Model.ROADWAY_DEPARTURE" />
+                </div>
+                <input type="submit" value="Submit Changes" />
+            </div>
+        </div>
+    </form>
+</div>

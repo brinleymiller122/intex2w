@@ -2,7 +2,87 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<header class="masthead">
+    <div class="container">
+
+        <div class="masthead-heading text-uppercase">Are you safe?</div>
+        <div class="masthead-subheading">Be aware of the dangers of driving in Utah.</div>
+        <a class="btn redcolor btn-xl text-uppercase" asp-controller="Home" asp-action="Prevention">Crash Prevention Tips</a>
+    </div>
+</header>
+
+@*<div class="container">
+        <center><img src="~/img/accident_final.JPG" alt="Car crash" style="width:75%;" /></center>
+
+    </div>*@
+
+
+
+
+
+<h1 class="goth pad cen">Are you safe on Utah roads?</h1>
+<div class="cen pad bigfont">
+    <p>In 2021, 320 people died on Utah roadways. State troopers believe that 90% of these crashes could have been prevented. Learn about the risks of driving in your city in Utah, and ways to prevent you and your loved ones from getting in these accidents.</p>
+    @* <a style="font-size:smaller" class="float-right" href="https://www.usnews.com/news/best-states/utah/articles/2022-01-08/roadway-deaths-in-utah-hit-nearly-20-year-high-last-year#:~:text=Data%20from%20the%20Utah%20Department,on%20Utah%20roadways%20in%202021.">Source</a>*@
 </div>
+
+<div class="cen goth pad2 medfont">
+    <p>Learn about the dangers of driving in your city, by selecting a city below.</p>
+</div>
+
+
+<form method="get" asp-controller="Home" asp-action="Index" class="cen">
+
+    <div>
+        <label class="font-weight-bold medfont">City</label>:
+        <select name="city">
+            <option selected value="">-- Select A City --</option>
+            @foreach (var city in ViewBag.cities)
+            {
+                if (city == ViewBag.selectedCity)
+                {
+                    <option selected value="@city">@city</option>
+                    //@ViewBag.selectedCity = city;
+                }
+                else
+                {
+                    <option value="@city">@city</option>
+                }
+            }
+        </select>
+
+        <button class="btn btn-sm redcolor" type="submit">Submit</button>
+    </div>
+
+
+</form>
+
+
+@if (ViewBag.selectedCity != " " && ViewBag.selectedCity != null)
+{
+    <h3 class="cen text-uppercase pad3">Top 5 Causes of accidents in <span>@ViewBag.SelectedCity</span></h3>
+    <ol class="center">
+        @* Add a flex box *@
+        @foreach (var kvp in ViewBag.top5)
+        {
+            <li class="medfont">@kvp.Key</li>
+        }
+    </ol>
+}
+
+<center>
+    <div class="pad4">
+        <a asp-action="Crashes" asp-controller="Home"> <img class="pic" src="~/img/crashwords.jpg" /></a>
+        <a asp-action="Prevention" asp-controller="Home"> <img class="pic" src="~/img/prevwords.jpg" /></a>
+    </div>
+</center>
+
+<center>
+    <div>
+        <div class='tableauPlaceholder' id='viz1649267321640' style='position: relative'><noscript><a href='#'><img alt='Crash Count in Utah Cities (2016, 2017, 2019) ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Cr&#47;CrashData_16492672757380&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='CrashData_16492672757380&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Cr&#47;CrashData_16492672757380&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
+        <script type='text/javascript'>var divElement = document.getElementById('viz1649267321640');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+    </div>
+</center>
+
+
