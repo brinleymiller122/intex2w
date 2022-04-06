@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 using intex2w.Data;
 using intex2w.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace intex2w.Controllers
 {
@@ -26,7 +27,7 @@ namespace intex2w.Controllers
         [HttpGet]
         public IActionResult Index(string city=" ")
         {
-            ViewBag.cities = _context.crashes.Select(c => c.CITY).Distinct();
+            ViewBag.cities = _context.crashes.Select(c => c.CITY).Distinct().OrderBy(c => c);
             List <Crash> TableInfo = _context.crashes.Where(c => c.CITY == city).ToList();
             ViewBag.selectedCity = city;
             ViewBag.TableInfo = TableInfo;
@@ -46,7 +47,6 @@ namespace intex2w.Controllers
                         wzr.Add("Work Zone Related", 1);
                     }
                 }
-
                 if (t.PEDESTRIAN_INVOLVED == true)
                 {
                     if (wzr.ContainsKey("Pedestrian Involved"))
@@ -58,7 +58,6 @@ namespace intex2w.Controllers
                         wzr.Add("Pedestrian Involved", 1);
                     }
                 }
-
                 if (t.BICYCLIST_INVOLVED == true)
                 {
                     if (wzr.ContainsKey("Bicyclist Involved"))
@@ -70,7 +69,6 @@ namespace intex2w.Controllers
                         wzr.Add("Bicyclist Involved", 1);
                     }
                 }
-
                 if (t.MOTORCYCLE_INVOLVED == true)
                 {
                     if (wzr.ContainsKey("Motorcycle Involved"))
@@ -82,9 +80,6 @@ namespace intex2w.Controllers
                         wzr.Add("Motorcycle Involved", 1);
                     }
                 }
-
-                
-
                 if (t.DUI == true)
                 {
                     if (wzr.ContainsKey("DUI"))
@@ -96,7 +91,6 @@ namespace intex2w.Controllers
                         wzr.Add("DUI", 1);
                     }
                 }
-
                 if (t.INTERSECTION_RELATED == true)
                 {
                     if (wzr.ContainsKey("Intersection Related"))
@@ -108,7 +102,6 @@ namespace intex2w.Controllers
                         wzr.Add("Intersection Related", 1);
                     }
                 }
-
                 if (t.WILD_ANIMAL_RELATED == true)
                 {
                     if (wzr.ContainsKey("Wild Animal Related"))
@@ -120,7 +113,6 @@ namespace intex2w.Controllers
                         wzr.Add("Wild Animal Related", 1);
                     }
                 }
-
                 if (t.DOMESTIC_ANIMAL_RELATED == true)
                 {
                     if (wzr.ContainsKey("Domestic Animal Related"))
@@ -132,7 +124,6 @@ namespace intex2w.Controllers
                         wzr.Add("Domestic Animal Related", 1);
                     }
                 }
-
                 if (t.COMMERCIAL_MOTOR_VEH_INVOLVED == true)
                 {
                     if (wzr.ContainsKey("Commercial Motor Vehicle Involved"))
@@ -144,7 +135,6 @@ namespace intex2w.Controllers
                         wzr.Add("Commercial Motor Vehicle Involved", 1);
                     }
                 }
-
                 if (t.TEENAGE_DRIVER_INVOLVED == true)
                 {
                     if (wzr.ContainsKey("Teenage Driver Involved"))
@@ -156,7 +146,6 @@ namespace intex2w.Controllers
                         wzr.Add("Teenage Driver Involved", 1);
                     }
                 }
-
                 if (t.OLDER_DRIVER_INVOLVED == true)
                 {
                     if (wzr.ContainsKey("Older Driver Involved"))
@@ -168,7 +157,6 @@ namespace intex2w.Controllers
                         wzr.Add("Older Driver Involved", 1);
                     }
                 }
-
                 if (t.NIGHT_DARK_CONDITION == true)
                 {
                     if (wzr.ContainsKey("Night/Dark Conditions"))
@@ -180,7 +168,6 @@ namespace intex2w.Controllers
                         wzr.Add("Night/Dark Conditions", 1);
                     }
                 }
-
                 if (t.DISTRACTED_DRIVING == true)
                 {
                     if (wzr.ContainsKey("Distracted Driving"))
@@ -192,7 +179,6 @@ namespace intex2w.Controllers
                         wzr.Add("Distracted Driving", 1);
                     }
                 }
-
                 if (t.DROWSY_DRIVING == true)
                 {
                     if (wzr.ContainsKey("Drowsy Driving"))
@@ -204,17 +190,10 @@ namespace intex2w.Controllers
                         wzr.Add("Drowsy Driving", 1);
                     }
                 }
-
-                
             }
 
-            
             IEnumerable<KeyValuePair<string, int>> returnable = wzr.OrderBy(key => key.Value).Take(5);
             ViewBag.top5 = returnable;
-            
-
-            //ViewBag.selectedCity = ViewBag.selectedCity.ToLower();
-
 
             return View();
         }
@@ -247,7 +226,7 @@ namespace intex2w.Controllers
             
             if (crashes.ToList().Count() > 0)
             {
-                ViewBag.crashes = crashes.Skip((page - 1) * 10).Take(10).ToList().OrderBy(c => c.CRASH_DATE);
+                ViewBag.crashes = crashes.Skip((page - 1) * 15).Take(15).ToList().OrderBy(c => c.CRASH_DATE);
             }
             else
             {
@@ -256,7 +235,7 @@ namespace intex2w.Controllers
             
             ViewBag.cities = _context.crashes.Select(c => c.CITY).Distinct().OrderBy(c => c);
             ViewBag.counties = _context.crashes.Select(c => c.COUNTY_NAME).Distinct().OrderBy(c => c);
-            ViewBag.severity = _context.crashes.Select(c => c.CRASH_SEVERITY_ID).Distinct();
+            ViewBag.severity = _context.crashes.Select(c => c.CRASH_SEVERITY_ID).Distinct().OrderBy(c => c);
             ViewBag.page = page;
             ViewBag.totalPages = (crashes.ToList().Count()) / 10 != 0 ? (crashes.ToList().Count()) / 10 : 1;
             ViewBag.selectedCity = city ?? " ";
@@ -265,12 +244,14 @@ namespace intex2w.Controllers
             return View();
         }
 
+        [Authorize(Roles="Administrator")]
         [HttpGet]
         public IActionResult Delete(int CRASH_ID)
         {
             Crash crash = _context.crashes.First(c => c.CRASH_ID == CRASH_ID);
             return View(crash);
         }
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public IActionResult Delete(int crashID, string y = "")
         {
@@ -279,6 +260,7 @@ namespace intex2w.Controllers
             _context.SaveChanges();
             return RedirectToAction("Crashes");
         }
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public IActionResult Edit(int CRASH_ID = -1)
         {
@@ -310,6 +292,7 @@ namespace intex2w.Controllers
             }
 
         }
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public IActionResult Edit(Crash crash, string workZone)
         {
@@ -339,6 +322,7 @@ namespace intex2w.Controllers
                 return View(crash);
             }
         }
+        [Authorize(Roles = "Administrator")]
         public IActionResult Add(Crash crash, string workZone)
         {
             if (ModelState.IsValid)
