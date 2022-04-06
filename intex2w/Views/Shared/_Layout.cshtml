@@ -41,15 +41,7 @@
 
             </div>
 
-            @if (SignInManager.IsSignedIn(User))
-            {
-                <a class="btn btn-secondary float-right" href="/account/logout">Log Out</a>
-
-            }
-            else
-            {
-                <a class="btn btn-secondary float-right" asp-controller="Account" asp-action="Login">Login</a>
-            }
+            <partial name="_LoginPartial" />
 
         </nav>
     </header>
