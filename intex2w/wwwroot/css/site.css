@@ -69,3 +69,65 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.main-container {
+    width: 80%;
+    padding: 2rem;
+    margin: auto;
+}
+.filter-form {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.filter-whole-form {
+    background-color: grey;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    width: auto;
+}
+.btn-no-margin {
+    padding: 0px 5px 0px 5px !important;
+}
+
+.table-holder {
+    overflow-x: auto;
+    max-height: 600px;
+}
+.larger-pagination {
+    font-size: 1.25rem;
+    margin-bottom: 3rem;
+}
+.table-striped-custom tr:nth-child(4n+1) {
+    background-color: #F3F3F2;
+}
+.mega-ultimate-super-edit-div {
+    display: flex;
+    flex-direction: row;
+}
+.mega-ultimate-super-edit-div div {
+    width: 50%;
+}
+.editForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.flex-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.flex-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.editFormSubDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
