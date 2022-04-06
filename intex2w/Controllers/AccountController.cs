@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using intex2w.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace intex2w.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AccountController : Controller
     {
         private UserManager<IdentityUser> userManager;
