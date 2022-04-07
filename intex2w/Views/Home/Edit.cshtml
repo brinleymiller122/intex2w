@@ -7,15 +7,16 @@
 @model Crash
 <div class="text-center">
     <h3>@(ViewBag.function == "edit" ? "Edit" : "Add") Crash</h3>
+    <br />
     <form asp-controller="Home" asp-action="@(ViewBag.function == "edit" ? "Edit" : "Add")" method="post">
-        <div class="center" asp-validation-summary="All"></div>
+        <div class="center"></div>
         <div class="editForm">
             <div class="editFormSubDiv">
                 <input asp-for="CRASH_ID" value="@Model.CRASH_ID" hidden/>
                 <label asp-for="CRASH_DATETIME">Crash Date and Time:</label>
-                <input asp-for="CRASH_DATETIME" type="datetime-local" value="@Model.CRASH_DATE.ToString("yyyy-MM-ddThh:mm")" />
+                <input asp-for="CRASH_DATETIME" type="datetime-local" value="@Model.CRASH_DATE.ToString("yyyy-MM-ddThh:mm")" required/>
                 <label asp-for="CITY">City:</label>
-                <select asp-for="CITY">
+                <select asp-for="CITY" required>
                     @foreach (var city in ViewBag.cities)
                     {
                         if (city == Model.CITY)
@@ -29,7 +30,7 @@
                     }
                 </select>
                 <label asp-for="COUNTY_NAME">County:</label>
-                <select asp-for="COUNTY_NAME">
+                <select asp-for="COUNTY_NAME" required>
                     @foreach (var county in ViewBag.counties)
                     {
                         if (county == Model.COUNTY_NAME)
@@ -43,11 +44,11 @@
                     }
                 </select>
                 <label asp-for="LAT_UTM_Y">Latitude:</label>
-                <input asp-for="LAT_UTM_Y" value="@Model.LAT_UTM_Y" />
+                <input asp-for="LAT_UTM_Y" value="@Model.LAT_UTM_Y" required/>
                 <label asp-for="LONG_UTM_X">Longitute</label>
-                <input asp-for="LONG_UTM_X" />
+                <input asp-for="LONG_UTM_X" required/>
                 <label asp-for="CRASH_SEVERITY_ID">Crash Severity:</label>
-                <select asp-for="CRASH_SEVERITY_ID">
+                <select asp-for="CRASH_SEVERITY_ID" required>
                     @foreach (var severity in ViewBag.severity)
                     {
                         if (severity == Model.CRASH_SEVERITY_ID)
@@ -66,7 +67,7 @@
                 <input asp-for="ROUTE" value="@Model.ROUTE" />
                 
                 <label asp-for="MILEPOINT">Milepoint:</label>
-                <input asp-for="MILEPOINT" value="@Model.MILEPOINT" />
+                <input asp-for="MILEPOINT" value="@Model.MILEPOINT" required/>
                 <div>
                     <label asp-for="WORK_ZONE_BOOL">Work Zone Related:</label>
                     @if (Model.WORK_ZONE_RELATED == "True")
@@ -152,7 +153,10 @@
                     <label asp-for="ROADWAY_DEPARTURE">Vehicle Left Roadway:</label>
                     @Html.CheckBoxFor(m => m.ROADWAY_DEPARTURE)
                 </div>
-                <input type="submit" value="Submit Changes" />
+                
+
+                
+                    <button class="btn btn-secondary">Submit</button>
             </div>
         </div>
     </form>
