@@ -18,6 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="mysql-ssl-ca-cert.pem">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

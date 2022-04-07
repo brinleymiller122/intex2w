@@ -10,18 +10,22 @@ using System.Globalization;
 using intex2w.Data;
 using intex2w.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.ML.OnnxRuntime;
+using Microsoft.ML.OnnxRuntime.Tensors;
 
 namespace intex2w.Controllers
 {
     public class HomeController : Controller
     {
+        private InferenceSession _session;
         private readonly ILogger<HomeController> _logger;
         private DBContext _context;
 
-        public HomeController(ILogger<HomeController> logger, DBContext context)
+        public HomeController(ILogger<HomeController> logger, DBContext context, InferenceSession session)
         {
             _logger = logger;
             _context = context;
+            _session = session;
         }
 
         [HttpGet]
@@ -241,64 +245,6 @@ namespace intex2w.Controllers
                 ViewBag.crashes = new List<Crash>();
             }
 
-            //List<Crash> TableInfo = _context.crashes.ToList();
-            
-            //ViewBag.Times = TableInfo;
-
-
-            //List<string> morning = new List<string>();
-            //List<string> afternoon = new List<string>();
-            //List<string> night = new List<string>();
-
-
-            ////add mornings to a list
-            //foreach (var i in TableInfo)
-            //{
-            //    DateTime start = new DateTime(2016, 12, 25, 4, 0, 0);
-            //    var startdate = start.TimeOfDay;
-
-            //    DateTime end = new DateTime(2016, 12, 25, 12, 0, 0);
-            //    var endtime = end.TimeOfDay;
-
-            //    if ((i.CRASH_DATE.TimeOfDay > startdate && i.CRASH_DATE.TimeOfDay < endtime))
-            //    {
-            //        morning.Add(i.CRASH_DATE.ToString("hh:mm tt"));
-            //    }
-            //}
-
-            ////add afternoon to a list 
-            //foreach (var i in TableInfo)
-            //{
-            //    DateTime aftstart = new DateTime(2016, 12, 25, 12, 0, 0);
-            //    var aftstartdate = aftstart.TimeOfDay;
-
-            //    DateTime aftend = new DateTime(2016, 12, 25, 7, 0, 0);
-            //    var aftendtime = aftend.TimeOfDay;
-
-            //    if ((i.CRASH_DATE.TimeOfDay > aftstartdate && i.CRASH_DATE.TimeOfDay < aftendtime))
-            //    {
-            //        afternoon.Add(i.CRASH_DATE.ToString("hh:mm tt"));
-            //    }
-            //}
-
-            ////add afternoon to a list 
-            //foreach (var i in TableInfo)
-            //{
-            //    DateTime evstart = new DateTime(2016, 12, 25, 7, 0, 0);
-            //    var evstartdate = evstart.TimeOfDay;
-
-            //    DateTime evtend = new DateTime(2016, 12, 25, 2, 0, 0);
-            //    var evendtime = evtend.TimeOfDay;
-
-            //    if ((i.CRASH_DATE.TimeOfDay > evstartdate && i.CRASH_DATE.TimeOfDay < evendtime))
-            //    {
-            //        night.Add(i.CRASH_DATE.ToString("hh:mm tt"));
-            //    }
-            //}
-
-            //ViewBag.Morning = morning;
-            //ViewBag.Afternoon = afternoon;
-            //ViewBag.Night = night;
 
             ViewBag.cities = _context.crashes.Select(c => c.CITY).Distinct().OrderBy(c => c);
             ViewBag.counties = _context.crashes.Select(c => c.COUNTY_NAME).Distinct().OrderBy(c => c);
@@ -419,6 +365,19 @@ namespace intex2w.Controllers
 
                 return RedirectToAction("Edit",crash);
             }
+        }
+
+        [HttpPost]
+        public IActionResult Score(MachineLearning data)
+        {
+            var result = _session.Run(new List<NamedOnnxValue>
+            {
+                NamedOnnxValue.CreateFromTensor("float_input", data.AsTensor())
+            });
+            Tensor<float> score = result.First().AsTensor<float>();
+            var prediction = new Prediction { PredictedValue = score.First() };
+            result.Dispose();
+            return View("Score", prediction);
         }
     }
 }

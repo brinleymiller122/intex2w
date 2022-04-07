@@ -67,15 +67,7 @@ namespace intex2w.Models
         [NotMapped]
         public bool WORK_ZONE_BOOL { get; set; }
 
-        public Tensor<float> AsTensor()
-        {
-            float[] data = new float[] 
-            {
-               
-            };
-            int[] dimensions = new int[] { 1, 8 };
-            return new DenseTensor<float>(data, dimensions);
-        }
+        
 
     }
 }
