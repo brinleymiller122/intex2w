@@ -427,8 +427,10 @@ namespace intex2w.Controllers
             {
                 NamedOnnxValue.CreateFromTensor("float_input", inputData.AsTensor())
             });
-            Tensor<int> score = result.First().AsTensor<int>();
-            var prediction = new Prediction { PredictedValue = score.ToString() };
+            string score = result.First().AsTensor<long>().ToArray<long>()[0].ToString();
+            
+            
+            var prediction = new Prediction { PredictedValue = score };
             result.Dispose();
             return View("Score");
         }
