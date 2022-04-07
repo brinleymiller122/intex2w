@@ -14,86 +14,6 @@
             <p>Crash ID: @Model.CRASH_ID</p>
             <p>Crash Date: @Model.CRASH_DATE.ToShortDateString()</p>
         </div>
-        <div>
-            <ul>
-                @if (Model.WORK_ZONE_RELATED == "True")
-                {
-                    <li>Crash occured in a work zone.</li>
-                }
-                @if (Model.PEDESTRIAN_INVOLVED)
-                {
-                    <li>A pedestrian was involved.</li>
-                }
-                @if (Model.BICYCLIST_INVOLVED)
-                {
-                    <li>A bicyclist was involved.</li>
-                }
-                @if (Model.MOTORCYCLE_INVOLVED)
-                {
-                    <li>A motorcyclist was involved.</li>
-                }
-                @if (Model.IMPROPER_RESTRAINT)
-                {
-                    <li>A seatbelt was not used properly.</li>
-                }
-                @if (Model.UNRESTRAINED)
-                {
-                    <li>A seatbelt was not used.</li>
-                }
-                @if (Model.DUI)
-                {
-                    <li>A driver was driving under the influence.</li>
-                }
-                @if (Model.INTERSECTION_RELATED)
-                {
-                    <li>The crash occured in or near an intersection.</li>
-                }
-                @if (Model.WILD_ANIMAL_RELATED)
-                {
-                    <li>A wild animal was involved.</li>
-                }
-                @if (Model.DOMESTIC_ANIMAL_RELATED)
-                {
-                    <li>A domesticated animal was involved.</li>
-                }
-                @if (Model.OVERTURN_ROLLOVER)
-                {
-                    <li>A vehicle was overturned or rolled.</li>
-                }
-                @if (Model.COMMERCIAL_MOTOR_VEH_INVOLVED)
-                {
-                    <li>A commercial vehicle was involved.</li>
-                }
-                @if (Model.TEENAGE_DRIVER_INVOLVED)
-                {
-                    <li>A teenage driver was involved.</li>
-                }
-                @if (Model.OLDER_DRIVER_INVOLVED)
-                {
-                    <li>A driver over 64 was involved.</li>
-                }
-                @if (Model.NIGHT_DARK_CONDITION)
-                {
-                    <li>The accident occured in the dark.</li>
-                }
-                @if (Model.SINGLE_VEHICLE)
-                {
-                    <li>This accident involved only one vehicle.</li>
-                }
-                @if (Model.DISTRACTED_DRIVING)
-                {
-                    <li>The driver was distracted.</li>
-                }
-                @if (Model.DROWSY_DRIVING)
-                {
-                    <li>The driver was drowsy.</li>
-                }
-                @if (Model.ROADWAY_DEPARTURE)
-                {
-                    <li>The vehicle was yeeted off of the roadway.</li>
-                }
-            </ul>
-        </div>
     </div>
     <div class="row">
         <div class="col-3">
@@ -211,6 +131,86 @@
             <h4 id="predictedHeader" hidden>Predicted Crash Severity:</h4>
             <h2 id="predictedBalue"></h2>
         </div>
+    </div>
+    <div>
+        <ul>
+            @if (Model.WORK_ZONE_RELATED == "True")
+            {
+                <li>Crash occured in a work zone.</li>
+            }
+            @if (Model.PEDESTRIAN_INVOLVED)
+            {
+                <li>A pedestrian was involved.</li>
+            }
+            @if (Model.BICYCLIST_INVOLVED)
+            {
+                <li>A bicyclist was involved.</li>
+            }
+            @if (Model.MOTORCYCLE_INVOLVED)
+            {
+                <li>A motorcyclist was involved.</li>
+            }
+            @if (Model.IMPROPER_RESTRAINT)
+            {
+                <li>A seatbelt was not used properly.</li>
+            }
+            @if (Model.UNRESTRAINED)
+            {
+                <li>A seatbelt was not used.</li>
+            }
+            @if (Model.DUI)
+            {
+                <li>A driver was driving under the influence.</li>
+            }
+            @if (Model.INTERSECTION_RELATED)
+            {
+                <li>The crash occured in or near an intersection.</li>
+            }
+            @if (Model.WILD_ANIMAL_RELATED)
+            {
+                <li>A wild animal was involved.</li>
+            }
+            @if (Model.DOMESTIC_ANIMAL_RELATED)
+            {
+                <li>A domesticated animal was involved.</li>
+            }
+            @if (Model.OVERTURN_ROLLOVER)
+            {
+                <li>A vehicle was overturned or rolled.</li>
+            }
+            @if (Model.COMMERCIAL_MOTOR_VEH_INVOLVED)
+            {
+                <li>A commercial vehicle was involved.</li>
+            }
+            @if (Model.TEENAGE_DRIVER_INVOLVED)
+            {
+                <li>A teenage driver was involved.</li>
+            }
+            @if (Model.OLDER_DRIVER_INVOLVED)
+            {
+                <li>A driver over 64 was involved.</li>
+            }
+            @if (Model.NIGHT_DARK_CONDITION)
+            {
+                <li>The accident occured in the dark.</li>
+            }
+            @if (Model.SINGLE_VEHICLE)
+            {
+                <li>This accident involved only one vehicle.</li>
+            }
+            @if (Model.DISTRACTED_DRIVING)
+            {
+                <li>The driver was distracted.</li>
+            }
+            @if (Model.DROWSY_DRIVING)
+            {
+                <li>The driver was drowsy.</li>
+            }
+            @if (Model.ROADWAY_DEPARTURE)
+            {
+                <li>The vehicle was yeeted off of the roadway.</li>
+            }
+        </ul>
     </div>
     <div class="severity-summary">
         <h2>Severity Key:</h2>
