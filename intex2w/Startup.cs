@@ -30,7 +30,6 @@ namespace intex2w
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //var secretHolder = SecretAccess.GetSecret();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -112,6 +111,13 @@ namespace intex2w
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.Use(async (context, next) =>
+            { 
+                context.Response.Headers.Add("Content-Security-Policy", "style-src 'self'; img-src 'self';");
+                
+                await next();
+            });
 
             app.UseEndpoints(endpoints =>
             {

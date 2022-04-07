@@ -206,8 +206,9 @@ namespace intex2w.Controllers
             return View();
         }
 
-        public IActionResult Crashes(int page = 1, string date = "", string time = "", string city = " ", string county="", int severity = -1, string starttime = "", string endtime="")
+        public IActionResult Crashes(int page = 1, string date = "", string time = "", string city = " ", string county="", int severity = -1, string timeOfDay = "")
         {
+            List<Crash> returnable = new List<Crash>();
             var crashes = _context.crashes.AsQueryable();
             if (date != null && date != "")
             {
@@ -227,25 +228,42 @@ namespace intex2w.Controllers
             {
                 crashes = crashes.Where(c => c.CRASH_SEVERITY_ID == severity).AsQueryable();
             }
-            if (starttime != "" && endtime != "")
+            if (timeOfDay != "" && timeOfDay != " ")
             {
-                //string[] times = timeRange.Split("-");
-                //9:00-12:00
-                DateTime start = DateTime.Parse(starttime);        //DateTime.Parse(times[0]);
-                DateTime end = DateTime.Parse(endtime);             //DateTime.Parse(times[1]);
-                crashes = crashes.Where(c => c.CRASH_DATE.TimeOfDay > start.TimeOfDay && c.CRASH_DATE.TimeOfDay < end.TimeOfDay).AsQueryable();
+                string[] timeArray = timeOfDay.Split("-");
+                TimeSpan start = DateTime.Parse(timeArray[0]).TimeOfDay;
+                TimeSpan end = DateTime.Parse(timeArray[1]).TimeOfDay;
+                
+                foreach (Crash crash in crashes)
+                {
+                    if (crash.CRASH_DATE.TimeOfDay > start && crash.CRASH_DATE.TimeOfDay < end)
+                    {
+                        returnable.Add(crash);
+                    }
+                }
+                //crashes = crashes.Where(c => c.CRASH_DATE.TimeOfDay > start)
+                //    .Where(c => c.CRASH_DATE.TimeOfDay < end).AsQueryable();
             }
             
-            if (crashes.ToList().Count() > 0)
+            if (returnable.ToList().Count() > 0)
             {
-                ViewBag.crashes = crashes.Skip((page - 1) * 15).Take(15).ToList().OrderBy(c => c.CRASH_DATE);
+                ViewBag.crashes = returnable.Skip((page - 1) * 15).Take(15).ToList().OrderBy(c => c.CRASH_DATE);
             }
             else
             {
                 ViewBag.crashes = new List<Crash>();
             }
 
+            List<KeyValuePair<string, string>> times = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("Morning Commute (6:00AM - 9:00AM)","06:00-09:00"),
+                new KeyValuePair<string, string>("Midday (9:00AM - 4:00PM)","09:00-16:00"),
+                new KeyValuePair<string, string>("Evening Commute (4:00PM - 7:00PM)","16:00-19:00"),
+                new KeyValuePair<string, string>("Night (7:00PM - 12:00PM)","19:00-24:00"),
+                new KeyValuePair<string, string>("Early Morning (12:00PM - 6:00AM)","00:00-6:00"),
+            };
 
+            ViewBag.times = times;
             ViewBag.cities = _context.crashes.Select(c => c.CITY).Distinct().OrderBy(c => c);
             ViewBag.counties = _context.crashes.Select(c => c.COUNTY_NAME).Distinct().OrderBy(c => c);
             ViewBag.severity = _context.crashes.Select(c => c.CRASH_SEVERITY_ID).Distinct().OrderBy(c => c);
@@ -254,8 +272,7 @@ namespace intex2w.Controllers
             ViewBag.selectedCity = city ?? " ";
             ViewBag.selectedCounty = county;
             ViewBag.selectedSeverity = severity;
-            ViewBag.StartTime = starttime;
-            ViewBag.EndTime = endtime;
+            ViewBag.selectedTimeOfDay = timeOfDay;
 
             return View();
         }
