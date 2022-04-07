@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace intex2w
 {
@@ -36,8 +37,22 @@ namespace intex2w
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            string crash_string;
+            string identity_string;
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                crash_string = Configuration.GetConnectionString("CrashDB");
+                identity_string = Configuration.GetConnectionString("IdentityDB");
+            }
+            else
+            {
+                crash_string = Environment.GetEnvironmentVariable("db_connection_string");
+                identity_string = Environment.GetEnvironmentVariable("identity_connection_string");
+            }
+
+            
             services.AddDbContext<DBContext>(options => {
-                options.UseMySql(Configuration.GetConnectionString("CrashDB"),
+                options.UseMySql(crash_string,
                 mySqlOptions =>
                     mySqlOptions.EnableRetryOnFailure(
                         maxRetryCount: 10,
@@ -58,7 +73,8 @@ namespace intex2w
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
-                    Configuration.GetConnectionString("IdentityDB")));
+                    identity_string));
+
             services.AddDbContext<DBContext>(options => {
                 options.UseMySql(Configuration.GetConnectionString("CrashDB"),
                 mySqlOptions =>
