@@ -22,24 +22,24 @@ namespace intex2w.Models
 
         public float route_15 { get; set; }
 
-        public float milepoint_0.1 {get; set;}
+        //public float "milepoint_0.1" {get; set;}
 
-        public float city_OUTSIDE\ CITY\ LIMITS { get; set; }
+        //public float city_OUTSIDE\ CITY\ LIMITS { get; set; }
 
-        public float county_name_SALT LAKE { get; set; } 
+        //public float county_name_SALT LAKE { get; set; } 
         
-        public float county_name_UTAH { get; set; }
+        //public float county_name_UTAH { get; set; }
 
-        public float crash_severity_id { get; set; }
-    }
+        //public float crash_severity_id { get; set; }
 
-    public Tensor<float> AsTensor()
-    {
-        float[] data = new float[]
+        public Tensor<float> AsTensor()
         {
+            float[] data = new float[]
+            {
 
-        };
-        int[] dimensions = new int[] { 1, 8 };
-        return new DenseTensor<float>(data, dimensions);
+            };
+            int[] dimensions = new int[] { 1, 8 };
+            return new DenseTensor<float>(data, dimensions);
+        }
     }
 }
