@@ -139,3 +139,58 @@ body {
     display: flex;
     flex-direction: column;
 }
+.predictorFormInputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+.align-left {
+    text-align: left;
+}
+.crash-summary {
+    background-color: #f4f4f4;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+.crash-summary p {
+    margin-bottom: 0rem !important;
+}
+
+.crash-summary div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#predictedBalue {
+    opacity: 0;
+    transition: 2s;
+}
+
+.severity-summary {
+    background-color: #f4f4f4;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+.severity-summary ol {
+    width: 50%;
+    align-self: center;;
+    text-align: left;
+}

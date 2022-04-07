@@ -414,27 +414,12 @@ namespace intex2w.Controllers
         public JsonResult Score(MachineLearning data)
         {
             MachineLearning inputData = new MachineLearning();
-            //inputData.intersection_related = crash.INTERSECTION_RELATED == true ? 1 : 0;
-            //inputData.night_dark_condition = crash.NIGHT_DARK_CONDITION == true ? 1 : 0;
-            //inputData.older_driver_involved = crash.OLDER_DRIVER_INVOLVED == true ? 1 : 0;
-            //inputData.teenage_driver_involved = crash.TEENAGE_DRIVER_INVOLVED == true ? 1 : 0;
-            //inputData.single_vehicle = crash.SINGLE_VEHICLE == true ? 1 : 0;
-            //inputData.roadway_departure = crash.ROADWAY_DEPARTURE == true ? 1 : 0;
-
-            //inputData.milepoint_01 = crash.MILEPOINT == 0.1 ? 1 : 0;
-            //inputData.route_15 = crash.ROUTE == "15" ? 1 : 0;
-
-            //inputData.city_OUTSIDE_CITY_LIMITS = crash.CITY == "OUTSIDECITYLIMITS" ? 1 : 0;
-            //inputData.county_name_SALT_LAKE = crash.COUNTY_NAME == "SALT LAKE" ? 1 : 0;
-            //inputData.county_name_UTAH = crash.COUNTY_NAME == "UTAH" ? 1 : 0;
-
 
             var result = _session.Run(new List<NamedOnnxValue>
             {
                 NamedOnnxValue.CreateFromTensor("float_input", inputData.AsTensor())
             });
             string score = result.First().AsTensor<long>().ToArray<long>()[0].ToString();
-            
             
             var prediction = new Prediction { PredictedValue = score };
             result.Dispose();
