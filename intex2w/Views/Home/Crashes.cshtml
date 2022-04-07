@@ -209,11 +209,12 @@
                                         }
                                     </ul>
                                     <div>
-                                        <button onclick="hideRow(@crash.CRASH_ID)" class="btn btn-secondary">Close Details</button>
+
                                         <form asp-controller="Home" asp-action="Predictor" method="get">
-                                            <input value="@crash.CRASH_ID" name="CRASH_ID" hidden/>
-                                            <input type="submit" value="Go to predictor" class="btn btn-primary" style="margin-left:1rem;"/>
+                                            <input value="@crash.CRASH_ID" name="CRASH_ID" hidden />
+                                            <input type="submit" value="Go to predictor" class="btn btn-primary" style="margin-left:1rem;" />
                                         </form>
+                                        <button onclick="hideRow(@crash.CRASH_ID)" class="btn btn-secondary mt-2">Close Details</button>
                                     </div>
                                 </div>
 
@@ -226,8 +227,10 @@
                                             <div class="flex-2">
                                                 <form method="get" asp-action="Edit" asp-controller="Home">
                                                     <input type="hidden" name="CRASH_ID" value="@(crash.CRASH_ID)" />
-                                                    <input type="submit" value="Edit Crash" class="btn btn-primary" />
+                                                    <input type="submit" value="Edit Crash" class="btn btn-primary mr-2" />
                                                 </form>
+                                                
+                                                
                                                 <form method="get" asp-action="Delete" asp-controller="Home">
                                                     <input type="hidden" name="CRASH_ID" value="@(crash.CRASH_ID)" />
                                                     <input type="submit" value="Delete Crash Record" class="btn btn-danger" />
