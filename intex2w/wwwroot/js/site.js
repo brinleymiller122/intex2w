@@ -87,6 +87,9 @@ function predictionUpdate() {
         },
         dataType: "json",
         success: function (data) {
+            document.getElementById("predictedHeader").hidden = false
+            document.getElementById("predictedBalue").style.opacity = 0;
+            document.getElementById("predictedBalue").style.opacity = 1;
             document.getElementById("predictedBalue").innerHTML = data
         }
     })
