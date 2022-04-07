@@ -16,8 +16,20 @@
             <input type="hidden" name="page" id="pageNumber" />
             <input placeholder="Date" type="date" name="date" value="@ViewBag.selectedDate?.ToString("yyyy-MM-dd")" />
 
-            <input placeholder="Start Time" type="time" name="starttime" value="@ViewBag.selectedStartTime?.ToString("H:mm")" />
-            <input placeholder="End Time" type="time" name="starttime" value="@ViewBag.selectedEndTime?.ToString("H:mm")" />
+            <select name="timeOfDay">
+                <option selected value="">-- Select a Time of Day --</option>
+                @foreach (KeyValuePair<string, string> kvp in ViewBag.times)
+                {
+                    if (kvp.Value == ViewBag.selectedTimeOfDay)
+                    {
+                        <option selected value="@kvp.Value">@kvp.Key</option>
+                    }
+                    else
+                    {
+                        <option value="@kvp.Value">@kvp.Key</option>
+                    }
+                } 
+            </select>
 
             
 
