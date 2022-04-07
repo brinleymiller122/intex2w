@@ -21,11 +21,11 @@ namespace intex2w.Controllers
         private readonly ILogger<HomeController> _logger;
         private DBContext _context;
 
-        public HomeController(ILogger<HomeController> logger, DBContext context)
+        public HomeController(ILogger<HomeController> logger, DBContext context, InferenceSession session)
         {
             _logger = logger;
             _context = context;
-            //_session = session;
+            _session = session;
         }
 
         [HttpGet]
