@@ -3,9 +3,12 @@
 
 
 <!DOCTYPE html>
+
 <link href="~/css/site.css" rel="stylesheet" />
 <script src="~/js/site.js"></script>
+
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,8 +19,10 @@
     <link rel="icon" type="image/x-icon" href="~/img/favicon2.jpg" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
 </head>
+
 <body>
     <header>
+        @*Creating the Navbar with Navigation*@
         <nav class="red navbar-expand-sm navbar-toggleable-lg navbar-light border-bottom box-shadow mb-5">
             <a>Drive Safe Utah</a>
 
@@ -55,14 +60,19 @@
     <div class="container">
  
         <main role="main" class="pb-3">
+
+            @* This is here to make sure that the Title on each page is aligned and not pushed to the center *@
             <div><p class="text-white">.</p></div>
-            <span></span>
+
+            @*Cookie Consent Banner*@
             <partial name="_CookieConsentPartial" />
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
+
+        @*Includes our GDPR Privacy Policy Attached*@
         <div class="container text-center">
             &copy; 2022 - DriveSafeUtah - <a href="~/img/GDPR-Privacy-Policy.pdf" target="_blank">Privacy Policy</a>
         </div>

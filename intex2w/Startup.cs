@@ -60,6 +60,7 @@ namespace intex2w
                         errorNumbersToAdd: null));
             });
 
+            //Making password requirements more intense
             services.Configure<IdentityOptions>(options =>
             {
 
@@ -71,6 +72,7 @@ namespace intex2w
                 options.Password.RequiredUniqueChars = 5;
             });
 
+            //Securely connecting the the Connection string IdentityDb
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
                     identity_string));
@@ -81,7 +83,7 @@ namespace intex2w
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-
+            //Adding HSTS to the Header
             services.AddHsts(options =>
             {
                 options.Preload = true;
@@ -116,6 +118,7 @@ namespace intex2w
             app.UseAuthentication();
             app.UseAuthorization();
 
+            //Adding CSP to the header
             app.Use(async (context, next) =>
             { 
                 context.Response.Headers.Add("Content-Security-Policy", "style-src 'self'; img-src 'self';");
