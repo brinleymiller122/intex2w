@@ -209,6 +209,7 @@
                                         }
                                     </ul>
                                     <button onclick="hideRow(@crash.CRASH_ID)" class="btn btn-secondary">Close Details</button>
+                                    
                                     <form asp-controller="Home" asp-action="Predictor" method="get">
                                         <input value="@crash.CRASH_ID" name="CRASH_ID"/>
                                         <input type="submit" value="Go to predictor"/>
