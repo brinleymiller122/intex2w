@@ -201,6 +201,10 @@ namespace intex2w.Controllers
         {
             return View();
         }
+        public IActionResult Regulators()
+        {
+            return View();
+        }
 
         public IActionResult Crashes(int page = 1, string date = "", string time = "", string city = " ", string county="", int severity = -1, string starttime = "", string endtime="")
         {
