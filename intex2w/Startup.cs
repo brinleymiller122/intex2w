@@ -89,6 +89,14 @@ namespace intex2w
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
+            });
+
             services.AddSingleton<InferenceSession>(
                 new InferenceSession("winner3.onnx"));
         }
