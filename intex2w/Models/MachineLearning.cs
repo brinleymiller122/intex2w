@@ -26,11 +26,10 @@ namespace intex2w.Models
 
         public float milepoint_01 {get; set;}
 
-        
 
         public float county_name_SALT_LAKE { get; set; } 
         
-        //public float county_name_UTAH { get; set; }
+        public float county_name_UTAH { get; set; }
 
         
 
