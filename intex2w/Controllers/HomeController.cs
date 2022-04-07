@@ -387,6 +387,24 @@ namespace intex2w.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult Predictor(int CRASH_ID)
+        {
+            Crash crash = _context.crashes.First(c => c.CRASH_ID == CRASH_ID);
+            
+            ViewBag.severity = _context.crashes.Select(c => c.CRASH_SEVERITY_ID).Distinct().OrderBy(c => c);
+            ViewBag.cities = _context.crashes.Select(c => c.CITY).Distinct().OrderBy(c => c);
+            ViewBag.counties = _context.crashes.Select(c => c.COUNTY_NAME).Distinct().OrderBy(c => c);
+             
+            return View(crash);
+                
+                
+           
+            }
+            
+        }
+
+
         [HttpPost]
         public IActionResult Score(MachineLearning data)
         {
@@ -398,6 +416,9 @@ namespace intex2w.Controllers
             var prediction = new Prediction { PredictedValue = score.First() };
             result.Dispose();
             return View("Score", prediction);
+
+
+
         }
     }
 }
