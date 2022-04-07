@@ -126,6 +126,20 @@ body {
     flex-direction: row;
     justify-content: space-evenly;
 }
+
+.flex-3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.flex-4 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-right:10px;
+}
+
 .editFormSubDiv {
     display: flex;
     flex-direction: column;
