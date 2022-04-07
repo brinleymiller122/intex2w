@@ -39,7 +39,7 @@ namespace intex2w.Models
             {
             intersection_related,older_driver_involved, night_dark_condition, single_vehicle, roadway_departure, route_15, milepoint_01, city_OUTSIDE_CITY_LIMITS, county_name_SALT_LAKE, county_name_UTAH
             };
-            int[] dimensions = new int[] { 1, 11 };
+            int[] dimensions = new int[] { 1, 10 };
             return new DenseTensor<float>(data, dimensions);
         }
     }

@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
+using Microsoft.ML.OnnxRuntime;
 
 namespace intex2w
 {
@@ -30,7 +31,6 @@ namespace intex2w
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //var secretHolder = SecretAccess.GetSecret();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -88,6 +88,9 @@ namespace intex2w
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddSingleton<InferenceSession>(
+                new InferenceSession("winner2.onnx"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
