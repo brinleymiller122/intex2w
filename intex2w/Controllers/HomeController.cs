@@ -10,18 +10,21 @@ using System.Globalization;
 using intex2w.Data;
 using intex2w.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.ML.OnnxRuntime;
 
 namespace intex2w.Controllers
 {
     public class HomeController : Controller
     {
+        private InferenceSession _session;
         private readonly ILogger<HomeController> _logger;
         private DBContext _context;
 
-        public HomeController(ILogger<HomeController> logger, DBContext context)
+        public HomeController(ILogger<HomeController> logger, DBContext context, InferenceSession session)
         {
             _logger = logger;
             _context = context;
+            _session = session;
         }
 
         [HttpGet]
