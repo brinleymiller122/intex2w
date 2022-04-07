@@ -7,13 +7,20 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 
+
+
 <div>
     <h3 class="text-center">Filter Crashes</h3>
     <form method="get" asp-controller="Home" asp-action="Crashes" class="filter-whole-form" id="crash-filter-form">
         <div class="filter-form">
             <input type="hidden" name="page" id="pageNumber" />
             <input placeholder="Date" type="date" name="date" value="@ViewBag.selectedDate?.ToString("yyyy-MM-dd")" />
-            <input placeholder="Time" />
+
+            <input placeholder="Start Time" type="time" name="starttime" value="@ViewBag.selectedStartTime?.ToString("H:mm")" />
+            <input placeholder="End Time" type="time" name="starttime" value="@ViewBag.selectedEndTime?.ToString("H:mm")" />
+
+            
+
             <select name="city">
                 <option selected value="">-- Select A City --</option>
                 @foreach (var city in ViewBag.cities)
