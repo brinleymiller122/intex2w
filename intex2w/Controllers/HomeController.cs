@@ -21,11 +21,11 @@ namespace intex2w.Controllers
         private readonly ILogger<HomeController> _logger;
         private DBContext _context;
 
-        public HomeController(ILogger<HomeController> logger, DBContext context)
+        public HomeController(ILogger<HomeController> logger, DBContext context, InferenceSession session)
         {
             _logger = logger;
             _context = context;
-            //_session = session;
+            _session = session;
         }
 
         [HttpGet]
@@ -405,16 +405,30 @@ namespace intex2w.Controllers
 
 
         [HttpPost]
-        public IActionResult Score(MachineLearning data)
+        public IActionResult Score(Crash crash)
         {
+            MachineLearning inputData = new MachineLearning();
+            inputData.intersection_related = crash.INTERSECTION_RELATED == true ? 1 : 0;
+            inputData.night_dark_condition = crash.NIGHT_DARK_CONDITION == true ? 1 : 0;
+            inputData.older_driver_involved = crash.OLDER_DRIVER_INVOLVED == true ? 1 : 0;
+            inputData.teenage_driver_involved = crash.TEENAGE_DRIVER_INVOLVED == true ? 1 : 0;
+            inputData.single_vehicle = crash.SINGLE_VEHICLE == true ? 1 : 0;
+            inputData.roadway_departure = crash.ROADWAY_DEPARTURE == true ? 1 : 0;
+            inputData.milepoint_01 = crash.MILEPOINT == 0.1 ? 1 : 0;
+            inputData.route_15 = crash.ROUTE == "15" ? 1 : 0;
+            inputData.city_OUTSIDE_CITY_LIMITS = crash.CITY == "OUTSIDECITYLIMITS" ? 1 : 0;
+            inputData.county_name_SALT_LAKE = crash.COUNTY_NAME == "SALT LAKE" ? 1 : 0;
+            inputData.county_name_UTAH = crash.COUNTY_NAME == "UTAH" ? 1 : 0;
+
+
             var result = _session.Run(new List<NamedOnnxValue>
             {
-                NamedOnnxValue.CreateFromTensor("float_input", data.AsTensor())
+                NamedOnnxValue.CreateFromTensor("float_input", inputData.AsTensor())
             });
             Tensor<float> score = result.First().AsTensor<float>();
             var prediction = new Prediction { PredictedValue = score.First() };
             result.Dispose();
-            return View("Score", prediction);
+            return View("Score");
         }
     }
 }
