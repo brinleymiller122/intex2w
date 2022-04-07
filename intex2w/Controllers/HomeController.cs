@@ -206,7 +206,7 @@ namespace intex2w.Controllers
             return View();
         }
 
-        public IActionResult Crashes(int page = 1, string date = "", string time = "", string city = " ", string county="", int severity = -1, string timeOfDay = "")
+        public IActionResult Crashes(int page = 1, string date = "", string city = " ", string county="", int severity = -1, string timeOfDay = "")
         {
             List<Crash> returnable = new List<Crash>();
             var crashes = _context.crashes.AsQueryable();
@@ -241,8 +241,6 @@ namespace intex2w.Controllers
                         returnable.Add(crash);
                     }
                 }
-                //crashes = crashes.Where(c => c.CRASH_DATE.TimeOfDay > start)
-                //    .Where(c => c.CRASH_DATE.TimeOfDay < end).AsQueryable();
             }
             
             if (returnable.ToList().Count() > 0)
@@ -263,12 +261,17 @@ namespace intex2w.Controllers
                 new KeyValuePair<string, string>("Early Morning (12:00PM - 6:00AM)","00:00-6:00"),
             };
 
+            //ViewBag lists for dropdowns
             ViewBag.times = times;
             ViewBag.cities = _context.crashes.Select(c => c.CITY).Distinct().OrderBy(c => c);
             ViewBag.counties = _context.crashes.Select(c => c.COUNTY_NAME).Distinct().OrderBy(c => c);
             ViewBag.severity = _context.crashes.Select(c => c.CRASH_SEVERITY_ID).Distinct().OrderBy(c => c);
+
+            //ViewBag for pagination
             ViewBag.page = page;
             ViewBag.totalPages = (crashes.ToList().Count()) / 10 != 0 ? (crashes.ToList().Count()) / 10 : 1;
+
+            //ViewBag for setting dropdown values
             ViewBag.selectedCity = city ?? " ";
             ViewBag.selectedCounty = county;
             ViewBag.selectedSeverity = severity;
