@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.ML.OnnxRuntime.Tensors;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -65,6 +66,16 @@ namespace intex2w.Models
         }
         [NotMapped]
         public bool WORK_ZONE_BOOL { get; set; }
+
+        public Tensor<float> AsTensor()
+        {
+            float[] data = new float[] 
+            {
+               
+            };
+            int[] dimensions = new int[] { 1, 8 };
+            return new DenseTensor<float>(data, dimensions);
+        }
 
     }
 }
