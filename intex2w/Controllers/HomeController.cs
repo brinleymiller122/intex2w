@@ -21,11 +21,11 @@ namespace intex2w.Controllers
         private readonly ILogger<HomeController> _logger;
         private DBContext _context;
 
-        public HomeController(ILogger<HomeController> logger, DBContext context)
+        public HomeController(ILogger<HomeController> logger, DBContext context, InferenceSession session)
         {
             _logger = logger;
             _context = context;
-            //_session = session;
+            _session = session;
         }
 
         [HttpGet]
@@ -427,10 +427,12 @@ namespace intex2w.Controllers
             {
                 NamedOnnxValue.CreateFromTensor("float_input", inputData.AsTensor())
             });
-            Tensor<float> score = result.First().AsTensor<float>();
-            var prediction = new Prediction { PredictedValue = score.First() };
+            string score = result.First().AsTensor<long>().ToArray<long>()[0].ToString();
+            
+            
+            var prediction = new Prediction { PredictedValue = score };
             result.Dispose();
-            return View("Score");
+            return View("Score", prediction);
         }
     }
 }

@@ -98,7 +98,7 @@ namespace intex2w
             });
 
             services.AddSingleton<InferenceSession>(
-                new InferenceSession("winner2.onnx"));
+                new InferenceSession("winner3.onnx"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

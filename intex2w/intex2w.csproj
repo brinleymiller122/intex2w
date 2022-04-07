@@ -27,6 +27,9 @@
     <None Update="mysql-ssl-ca-cert.pem">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="winner3.onnx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
