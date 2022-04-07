@@ -9,10 +9,11 @@
 
 <div class="text-center">
     <h3>Predict Crash Severity</h3>
+    <h1 id="predictedBalue"></h1>
     <form asp-controller="Home" asp-action="Score" method="post">
         
         <div class="predictorForm">
-            <div class="horizontalSubDiv">
+            <div hidden>
                 @*All of these inputs don't affect our model and will be disabled'*@
                 <input asp-for="CRASH_ID" value="@Model.CRASH_ID" hidden />
                 <label asp-for="CRASH_DATETIME">Crash Date and Time:</label>
@@ -84,9 +85,10 @@
                 </div>
 
             </div>
+            @*These inputs do affect the model and are all enabled.*@
             <div class="horizontalSubDiv">
                 <label asp-for="CITY">City:</label>
-                <select asp-for="CITY">
+                <select asp-for="CITY" onchange="predictionUpdate();" id="citySelector">
                     @foreach (var city in ViewBag.cities)
                     {
                         if (city == Model.CITY)
@@ -100,7 +102,7 @@
                     }
                 </select>
                 <label asp-for="COUNTY_NAME">County:</label>
-                <select asp-for="COUNTY_NAME">
+                <select asp-for="COUNTY_NAME" id="countySelector" onchange="predictionUpdate();">
                     @foreach (var county in ViewBag.counties)
                     {
                         if (county == Model.COUNTY_NAME)
@@ -114,35 +116,37 @@
                     }
                 </select>
                 <label asp-for="MILEPOINT">Milepoint:</label>
-                <input asp-for="MILEPOINT" value="@Model.MILEPOINT" />
+                <input asp-for="MILEPOINT" value="@Model.MILEPOINT" id="milepointInput" onchange="predictionUpdate();"/>
 
                 <div>
                     <label asp-for="INTERSECTION_RELATED">Intersection Related:</label>
-                    @Html.CheckBoxFor(m => m.INTERSECTION_RELATED)
+                    @Html.CheckBoxFor(m => m.INTERSECTION_RELATED, new { id="intersectionRelated", onchange="predictionUpdate();"})
                 </div>
                 <div>
                     <label asp-for="TEENAGE_DRIVER_INVOLVED">Teenage Driver Involved:</label>
-                    @Html.CheckBoxFor(m => m.TEENAGE_DRIVER_INVOLVED)
+                    @Html.CheckBoxFor(m => m.TEENAGE_DRIVER_INVOLVED, new { onchange = "predictionUpdate();", id="teenagerRelated" })
                 </div>
                 <div>
                     <label asp-for="OLDER_DRIVER_INVOLVED">Older Driver Involved:</label>
-                    @Html.CheckBoxFor(m => m.OLDER_DRIVER_INVOLVED)
+                    @Html.CheckBoxFor(m => m.OLDER_DRIVER_INVOLVED, new { onchange = "predictionUpdate();", id="olderRelated" })
                 </div>
                 <div>
                     <label asp-for="NIGHT_DARK_CONDITION">Nightime:</label>
-                    @Html.CheckBoxFor(m => m.NIGHT_DARK_CONDITION)
+                    @Html.CheckBoxFor(m => m.NIGHT_DARK_CONDITION, new { onchange = "predictionUpdate();", id="nightRelated" })
                 </div>
                 <div>
                     <label asp-for="SINGLE_VEHICLE">Single Vehicle Accident:</label>
-                    @Html.CheckBoxFor(m => m.SINGLE_VEHICLE)
+                    @Html.CheckBoxFor(m => m.SINGLE_VEHICLE, new { onchange = "predictionUpdate();", id="singleVehicle" })
                 </div>
 
                 <div>
                     <label asp-for="ROADWAY_DEPARTURE">Vehicle Left Roadway:</label>
-                    @Html.CheckBoxFor(m => m.ROADWAY_DEPARTURE)
+                    @Html.CheckBoxFor(m => m.ROADWAY_DEPARTURE, new { onchange = "predictionUpdate();", id="roadWayDeparture" })
                 </div>
-
-                <input type="submit" value="Submit Changes" />
+                <div>
+                    <label>Did this accident happen on I15?</label>
+                    <input type="checkbox" id="i15"/>
+                </div>
             </div>
         </div>
 
@@ -150,3 +154,4 @@
 
     </form>
 </div>
+<script src="~/js/site.js"></script>
