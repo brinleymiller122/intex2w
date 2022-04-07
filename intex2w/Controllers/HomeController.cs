@@ -10,18 +10,22 @@ using System.Globalization;
 using intex2w.Data;
 using intex2w.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.ML.OnnxRuntime;
+using Microsoft.ML.OnnxRuntime.Tensors;
 
 namespace intex2w.Controllers
 {
     public class HomeController : Controller
     {
+        private InferenceSession _session;
         private readonly ILogger<HomeController> _logger;
         private DBContext _context;
 
-        public HomeController(ILogger<HomeController> logger, DBContext context)
+        public HomeController(ILogger<HomeController> logger, DBContext context, InferenceSession session)
         {
             _logger = logger;
             _context = context;
+            _session = session;
         }
 
         [HttpGet]
@@ -378,6 +382,19 @@ namespace intex2w.Controllers
 
                 return RedirectToAction("Edit",crash);
             }
+        }
+
+        [HttpPost]
+        public IActionResult Score(MachineLearning data)
+        {
+            var result = _session.Run(new List<NamedOnnxValue>
+            {
+                NamedOnnxValue.CreateFromTensor("float_input", data.AsTensor())
+            });
+            Tensor<float> score = result.First().AsTensor<float>();
+            var prediction = new Prediction { PredictedValue = score.First() };
+            result.Dispose();
+            return View("Score", prediction);
         }
     }
 }

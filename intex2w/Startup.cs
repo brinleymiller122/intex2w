@@ -112,6 +112,13 @@ namespace intex2w
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.Use(async (context, next) =>
+            { 
+                context.Response.Headers.Add("Content-Security-Policy", "style-src 'self'; img-src 'self';");
+                
+                await next();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
