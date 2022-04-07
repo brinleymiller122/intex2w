@@ -16,11 +16,11 @@
                 @*All of these inputs don't affect our model and will be disabled'*@
                 <input asp-for="CRASH_ID" value="@Model.CRASH_ID" hidden />
                 <label asp-for="CRASH_DATETIME">Crash Date and Time:</label>
-                <input asp-for="CRASH_DATETIME" type="datetime-local" value="@Model.CRASH_DATE.ToString("yyyy-MM-ddThh:mm")" disabled />
+                <input asp-for="CRASH_DATETIME" type="datetime-local" value="@Model.CRASH_DATE.ToString("yyyy-MM-ddThh:mm")" readonly/>
                 <label asp-for="LAT_UTM_Y">Latitude:</label>
-                <input asp-for="LAT_UTM_Y" value="@Model.LAT_UTM_Y" disabled />
+                <input asp-for="LAT_UTM_Y" value="@Model.LAT_UTM_Y" readonly />
                 <label asp-for="LONG_UTM_X">Longitute</label>
-                <input asp-for="LONG_UTM_X" disabled />
+                <input asp-for="LONG_UTM_X" readonly />
                 <label asp-for="ROUTE">Route:</label>
                 <input asp-for="ROUTE" value="@Model.ROUTE" />
                 <div>
