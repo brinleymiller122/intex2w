@@ -21,11 +21,11 @@ namespace intex2w.Controllers
         private readonly ILogger<HomeController> _logger;
         private DBContext _context;
 
-        public HomeController(ILogger<HomeController> logger, DBContext context, InferenceSession session)
+        public HomeController(ILogger<HomeController> logger, DBContext context)
         {
             _logger = logger;
             _context = context;
-            _session = session;
+            //_session = session;
         }
 
         [HttpGet]
@@ -276,6 +276,7 @@ namespace intex2w.Controllers
             _context.SaveChanges();
             return RedirectToAction("Crashes");
         }
+
         [Authorize(Roles = "Administrator")]
         [HttpGet]
         public IActionResult Edit(int CRASH_ID = -1)
@@ -308,6 +309,7 @@ namespace intex2w.Controllers
             }
 
         }
+
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         public IActionResult Edit(Crash crash, string workZone)
