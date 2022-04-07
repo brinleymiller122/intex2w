@@ -432,7 +432,7 @@ namespace intex2w.Controllers
             
             var prediction = new Prediction { PredictedValue = score };
             result.Dispose();
-            return View("Score");
+            return View("Score", prediction);
         }
     }
 }
