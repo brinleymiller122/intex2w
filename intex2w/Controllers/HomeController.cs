@@ -21,11 +21,11 @@ namespace intex2w.Controllers
         private readonly ILogger<HomeController> _logger;
         private DBContext _context;
 
-        public HomeController(ILogger<HomeController> logger, DBContext context, InferenceSession session)
+        public HomeController(ILogger<HomeController> logger, DBContext context)
         {
             _logger = logger;
             _context = context;
-            _session = session;
+            //_session = session;
         }
 
         [HttpGet]
@@ -228,7 +228,7 @@ namespace intex2w.Controllers
             {
                 crashes = crashes.Where(c => c.CRASH_SEVERITY_ID == severity).AsQueryable();
             }
-            if (timeOfDay != "" && timeOfDay != " ")
+            if (timeOfDay != "" && timeOfDay != " " && timeOfDay != null)
             {
                 string[] timeArray = timeOfDay.Split("-");
                 TimeSpan start = DateTime.Parse(timeArray[0]).TimeOfDay;
@@ -241,6 +241,10 @@ namespace intex2w.Controllers
                         returnable.Add(crash);
                     }
                 }
+            }
+            else
+            {
+                returnable.AddRange(crashes);
             }
             
             if (returnable.ToList().Count() > 0)
@@ -397,11 +401,6 @@ namespace intex2w.Controllers
             ViewBag.counties = _context.crashes.Select(c => c.COUNTY_NAME).Distinct().OrderBy(c => c);
              
             return View(crash);
-                
-                
-           
-            }
-            
         }
 
 
@@ -416,9 +415,6 @@ namespace intex2w.Controllers
             var prediction = new Prediction { PredictedValue = score.First() };
             result.Dispose();
             return View("Score", prediction);
-
-
-
         }
     }
 }
