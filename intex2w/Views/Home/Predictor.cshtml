@@ -9,10 +9,14 @@
 
 <div class="text-center">
     <h2>Predict Crash Severity</h2>
+    <p>Crash ID: @Model.CRASH_ID</p>
+    <p>Crash Date: @Model.CRASH_DATE.ToShortDateString()</p>
     <div class="crash-summary">
         <div>
-            <p>Crash ID: @Model.CRASH_ID</p>
-            <p>Crash Date: @Model.CRASH_DATE.ToShortDateString()</p>
+            <div class="col">
+                <h4 id="predictedHeader" hidden>Predicted Crash Severity:</h4>
+                <h2 id="predictedBalue"></h2>
+            </div>
         </div>
         <div>
             <ul>
@@ -98,8 +102,10 @@
     <div class="row">
         <div class="col-3">
             <h4>What am I looking at?</h4>
-            <p class="align-left">This sandbox predictor allows you to see what the hypothetical severity of this crash would be under different conditions. 
-            Expirement with the different inputs to see how they affect your predicted severity.</p>
+            <p class="align-left">
+                This sandbox predictor allows you to see what the hypothetical severity of this crash would be under different conditions.
+                Expirement with the different inputs to see how they affect your predicted severity.
+            </p>
         </div>
         <div class="col-6">
             <form asp-controller="Home" asp-action="Score" method="post">
@@ -207,10 +213,6 @@
                 </div>
             </form>
         </div>
-        <div class="col-3">
-            <h4 id="predictedHeader" hidden>Predicted Crash Severity:</h4>
-            <h2 id="predictedBalue"></h2>
-        </div>
     </div>
     <div class="severity-summary">
         <h2>Severity Key:</h2>
@@ -222,6 +224,6 @@
             <li>A fatal accident</li>
         </ol>
     </div>
-    
+
 </div>
 <script src="~/js/site.js"></script>
