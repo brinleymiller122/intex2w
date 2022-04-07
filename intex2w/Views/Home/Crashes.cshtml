@@ -208,12 +208,13 @@
                                             <li>The vehicle was yeeted off of the roadway.</li>
                                         }
                                     </ul>
-                                    <button onclick="hideRow(@crash.CRASH_ID)" class="btn btn-secondary">Close Details</button>
-                                    
-                                    <form asp-controller="Home" asp-action="Predictor" method="get">
-                                        <input value="@crash.CRASH_ID" name="CRASH_ID"/>
-                                        <input type="submit" value="Go to predictor"/>
-                                    </form>
+                                    <div>
+                                        <button onclick="hideRow(@crash.CRASH_ID)" class="btn btn-secondary">Close Details</button>
+                                        <form asp-controller="Home" asp-action="Predictor" method="get">
+                                            <input value="@crash.CRASH_ID" name="CRASH_ID" hidden/>
+                                            <input type="submit" value="Go to predictor" class="btn btn-primary" style="margin-left:1rem;"/>
+                                        </form>
+                                    </div>
                                 </div>
 
                                 @if (SignInManager.IsSignedIn(User))
