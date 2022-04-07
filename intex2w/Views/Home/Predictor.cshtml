@@ -17,144 +17,146 @@
                 <form asp-controller="Home" asp-action="Score" method="post">
 
                     <div class="">
-                        <div class="column">
-                            @*All of these inputs don't affect our model and will be disabled'*@
-                            <input asp-for="CRASH_ID" value="@Model.CRASH_ID" hidden />
-                            <label asp-for="CRASH_DATETIME">Crash Date and Time:</label>
-                            <input asp-for="CRASH_DATETIME" class="mb-2" type="datetime-local" value="@Model.CRASH_DATE.ToString("yyyy-MM-ddThh:mm")" readonly /><br />
-                            <label asp-for="LAT_UTM_Y">Latitude:</label>
-                            <input asp-for="LAT_UTM_Y" value="@Model.LAT_UTM_Y" readonly /><br />
-                            <label asp-for="LONG_UTM_X">Longitute</label>
-                            <input asp-for="LONG_UTM_X" readonly /><br />
-                            <label asp-for="ROUTE">Route:</label>
-                            <input asp-for="ROUTE" value="@Model.ROUTE" />
-                            <div>
-                                <label asp-for="WORK_ZONE_BOOL">Work Zone Related:</label>
-                                @if (Model.WORK_ZONE_RELATED == "True")
-                                {
-                                    <input name="workZone" type="checkbox" checked disabled />
-                                }
-                                else
-                                {
-                                    <input name="workZone" type="checkbox" disabled />
-                                }
-                            </div>
-                            <div>
-                                <label asp-for="PEDESTRIAN_INVOLVED">Pedestrian Involved:</label>
-                                @Html.CheckBoxFor(m => m.PEDESTRIAN_INVOLVED, new { disabled = "disabled" })
-                            </div>
-                            <div>
-                                <label asp-for="BICYCLIST_INVOLVED">Bicyclist Involved:</label>
-                                @Html.CheckBoxFor(m => m.BICYCLIST_INVOLVED, new { disabled = "disabled" })
-                            </div>
-                            <div>
-                                <label asp-for="MOTORCYCLE_INVOLVED">Motorcycle Involved:</label>
-                                @Html.CheckBoxFor(m => m.MOTORCYCLE_INVOLVED, new { disabled = "disabled" })
-                            </div>
-                            <div>
-                                <label asp-for="IMPROPER_RESTRAINT">Improper Restraint:</label>
-                                @Html.CheckBoxFor(m => m.IMPROPER_RESTRAINT, new { disabled = "disabled" })
-                            </div>
-                            <div>
-                                <label asp-for="UNRESTRAINED">Unrestrained:</label>
-                                @Html.CheckBoxFor(m => m.UNRESTRAINED, new { disabled = "disabled" })
-                            </div>
-                            <div>
-                                <label asp-for="DUI">DUI:</label>
-                                @Html.CheckBoxFor(m => m.DUI, new { disabled = "disabled" })
-                            </div>
-                            <div>
-                                <label asp-for="WILD_ANIMAL_RELATED">Wild Animal Related:</label>
-                                @Html.CheckBoxFor(m => m.WILD_ANIMAL_RELATED, new { disabled = "disabled" })
-                            </div>
-                            <div>
-                                <label asp-for="DOMESTIC_ANIMAL_RELATED">Domestic Animal Related:</label>
-                                @Html.CheckBoxFor(m => m.DOMESTIC_ANIMAL_RELATED, new { disabled = "disabled" })
-                            </div>
-                            <div>
-                                <label asp-for="OVERTURN_ROLLOVER">Overturn/Rollover:</label>
-                                @Html.CheckBoxFor(m => m.OVERTURN_ROLLOVER, new { disabled = "disabled" })
-                            </div>
-                            <div>
-                                <label asp-for="COMMERCIAL_MOTOR_VEH_INVOLVED">Commercial Vehicle Involved:</label>
-                                @Html.CheckBoxFor(m => m.COMMERCIAL_MOTOR_VEH_INVOLVED, new { disabled = "disabled" })
-                            </div>
-                            <div>
-                                <label asp-for="DISTRACTED_DRIVING">Distracted Driving:</label>
-                                @Html.CheckBoxFor(m => m.DISTRACTED_DRIVING, new { disabled = "disabled" })
-                            </div>
-                            <div>
-                                <label asp-for="DROWSY_DRIVING">Drowsy Driving:</label>
-                                @Html.CheckBoxFor(m => m.DROWSY_DRIVING, new { disabled = "disabled" })
-                            </div>
-
-
-
-                            @* Editable Fields-------------- for the machine learning algorithm *@
-                        </div>
-                        <div class="column">
-                            <h5>Editable Fields</h5>
-                            <label asp-for="CITY">City:</label>
-                            <select asp-for="CITY">
-                                @foreach (var city in ViewBag.cities)
-                                {
-                                    if (city == Model.CITY)
+                       
+                            <div class="column">
+                                @*All of these inputs don't affect our model and will be disabled'*@
+                                <input asp-for="CRASH_ID" value="@Model.CRASH_ID" hidden />
+                                <label asp-for="CRASH_DATETIME">Crash Date and Time:</label>
+                                <input asp-for="CRASH_DATETIME" class="mb-2" type="datetime-local" value="@Model.CRASH_DATE.ToString("yyyy-MM-ddThh:mm")" readonly /><br />
+                                <label asp-for="LAT_UTM_Y">Latitude:</label>
+                                <input asp-for="LAT_UTM_Y" value="@Model.LAT_UTM_Y" readonly /><br />
+                                <label asp-for="LONG_UTM_X">Longitute</label>
+                                <input asp-for="LONG_UTM_X" readonly /><br />
+                                <label asp-for="ROUTE">Route:</label>
+                                <input asp-for="ROUTE" value="@Model.ROUTE" />
+                                <div>
+                                    <label asp-for="WORK_ZONE_BOOL">Work Zone Related:</label>
+                                    @if (Model.WORK_ZONE_RELATED == "True")
                                     {
-                                        <option selected value="@city">@city</option>
+                                        <input name="workZone" type="checkbox" checked disabled />
                                     }
                                     else
                                     {
-                                        <option value="@city">@city</option>
+                                        <input name="workZone" type="checkbox" disabled />
                                     }
-                                }
-                            </select><br />
-                            <label asp-for="COUNTY_NAME">County:</label>
-                            <select asp-for="COUNTY_NAME">
-                                @foreach (var county in ViewBag.counties)
-                                {
-                                    if (county == Model.COUNTY_NAME)
+                                </div>
+                                <div>
+                                    <label asp-for="PEDESTRIAN_INVOLVED">Pedestrian Involved:</label>
+                                    @Html.CheckBoxFor(m => m.PEDESTRIAN_INVOLVED, new { disabled = "disabled" })
+                                </div>
+                                <div>
+                                    <label asp-for="BICYCLIST_INVOLVED">Bicyclist Involved:</label>
+                                    @Html.CheckBoxFor(m => m.BICYCLIST_INVOLVED, new { disabled = "disabled" })
+                                </div>
+                                <div>
+                                    <label asp-for="MOTORCYCLE_INVOLVED">Motorcycle Involved:</label>
+                                    @Html.CheckBoxFor(m => m.MOTORCYCLE_INVOLVED, new { disabled = "disabled" })
+                                </div>
+                                <div>
+                                    <label asp-for="IMPROPER_RESTRAINT">Improper Restraint:</label>
+                                    @Html.CheckBoxFor(m => m.IMPROPER_RESTRAINT, new { disabled = "disabled" })
+                                </div>
+                                <div>
+                                    <label asp-for="UNRESTRAINED">Unrestrained:</label>
+                                    @Html.CheckBoxFor(m => m.UNRESTRAINED, new { disabled = "disabled" })
+                                </div>
+                                <div>
+                                    <label asp-for="DUI">DUI:</label>
+                                    @Html.CheckBoxFor(m => m.DUI, new { disabled = "disabled" })
+                                </div>
+                                <div>
+                                    <label asp-for="WILD_ANIMAL_RELATED">Wild Animal Related:</label>
+                                    @Html.CheckBoxFor(m => m.WILD_ANIMAL_RELATED, new { disabled = "disabled" })
+                                </div>
+                                <div>
+                                    <label asp-for="DOMESTIC_ANIMAL_RELATED">Domestic Animal Related:</label>
+                                    @Html.CheckBoxFor(m => m.DOMESTIC_ANIMAL_RELATED, new { disabled = "disabled" })
+                                </div>
+                                <div>
+                                    <label asp-for="OVERTURN_ROLLOVER">Overturn/Rollover:</label>
+                                    @Html.CheckBoxFor(m => m.OVERTURN_ROLLOVER, new { disabled = "disabled" })
+                                </div>
+                                <div>
+                                    <label asp-for="COMMERCIAL_MOTOR_VEH_INVOLVED">Commercial Vehicle Involved:</label>
+                                    @Html.CheckBoxFor(m => m.COMMERCIAL_MOTOR_VEH_INVOLVED, new { disabled = "disabled" })
+                                </div>
+                                <div>
+                                    <label asp-for="DISTRACTED_DRIVING">Distracted Driving:</label>
+                                    @Html.CheckBoxFor(m => m.DISTRACTED_DRIVING, new { disabled = "disabled" })
+                                </div>
+                                <div>
+                                    <label asp-for="DROWSY_DRIVING">Drowsy Driving:</label>
+                                    @Html.CheckBoxFor(m => m.DROWSY_DRIVING, new { disabled = "disabled" })
+                                </div>
+                            
+
+                           
+                                @* Editable Fields-------------- for the machine learning algorithm *@
+                            </div>
+                            <div class="column">
+                                <h5>Editable Fields</h5>
+                                <label asp-for="CITY">City:</label>
+                                <select asp-for="CITY">
+                                    @foreach (var city in ViewBag.cities)
                                     {
-                                        <option selected value="@county">@county</option>
+                                        if (city == Model.CITY)
+                                        {
+                                            <option selected value="@city">@city</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@city">@city</option>
+                                        }
                                     }
-                                    else
+                                </select><br />
+                                <label asp-for="COUNTY_NAME">County:</label>
+                                <select asp-for="COUNTY_NAME">
+                                    @foreach (var county in ViewBag.counties)
                                     {
-                                        <option value="@county">@county</option>
+                                        if (county == Model.COUNTY_NAME)
+                                        {
+                                            <option selected value="@county">@county</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@county">@county</option>
+                                        }
                                     }
-                                }
-                            </select><br />
-                            <label asp-for="MILEPOINT">Milepoint:</label>
-                            <input asp-for="MILEPOINT" value="@Model.MILEPOINT" />
+                                </select><br />
+                                <label asp-for="MILEPOINT">Milepoint:</label>
+                                <input asp-for="MILEPOINT" value="@Model.MILEPOINT" />
 
-                            <div>
-                                <label asp-for="INTERSECTION_RELATED">Intersection Related:</label>
-                                @Html.CheckBoxFor(m => m.INTERSECTION_RELATED)
-                            </div>
-                            <div>
-                                <label asp-for="TEENAGE_DRIVER_INVOLVED">Teenage Driver Involved:</label>
-                                @Html.CheckBoxFor(m => m.TEENAGE_DRIVER_INVOLVED)
-                            </div>
-                            <div>
-                                <label asp-for="OLDER_DRIVER_INVOLVED">Older Driver Involved:</label>
-                                @Html.CheckBoxFor(m => m.OLDER_DRIVER_INVOLVED)
-                            </div>
-                            <div>
-                                <label asp-for="NIGHT_DARK_CONDITION">Nightime:</label>
-                                @Html.CheckBoxFor(m => m.NIGHT_DARK_CONDITION)
-                            </div>
-                            <div>
-                                <label asp-for="SINGLE_VEHICLE">Single Vehicle Accident:</label>
-                                @Html.CheckBoxFor(m => m.SINGLE_VEHICLE)
+                                <div>
+                                    <label asp-for="INTERSECTION_RELATED">Intersection Related:</label>
+                                    @Html.CheckBoxFor(m => m.INTERSECTION_RELATED)
+                                </div>
+                                <div>
+                                    <label asp-for="TEENAGE_DRIVER_INVOLVED">Teenage Driver Involved:</label>
+                                    @Html.CheckBoxFor(m => m.TEENAGE_DRIVER_INVOLVED)
+                                </div>
+                                <div>
+                                    <label asp-for="OLDER_DRIVER_INVOLVED">Older Driver Involved:</label>
+                                    @Html.CheckBoxFor(m => m.OLDER_DRIVER_INVOLVED)
+                                </div>
+                                <div>
+                                    <label asp-for="NIGHT_DARK_CONDITION">Nightime:</label>
+                                    @Html.CheckBoxFor(m => m.NIGHT_DARK_CONDITION)
+                                </div>
+                                <div>
+                                    <label asp-for="SINGLE_VEHICLE">Single Vehicle Accident:</label>
+                                    @Html.CheckBoxFor(m => m.SINGLE_VEHICLE)
+                                </div>
+
+                                <div>
+                                    <label asp-for="ROADWAY_DEPARTURE">Vehicle Left Roadway:</label>
+                                    @Html.CheckBoxFor(m => m.ROADWAY_DEPARTURE)
+                                </div>
+
+                                <input type="submit" value="Submit Changes" />
                             </div>
 
-                            <div>
-                                <label asp-for="ROADWAY_DEPARTURE">Vehicle Left Roadway:</label>
-                                @Html.CheckBoxFor(m => m.ROADWAY_DEPARTURE)
-                            </div>
-
-                            <input type="submit" value="Submit Changes" />
                         </div>
-
-                    </div>
+                    
 
 
                 </form>
