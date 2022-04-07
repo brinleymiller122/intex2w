@@ -140,3 +140,25 @@ header.masthead .masthead-heading {
     text-align: center;
     background-color: #f1f1f1;
 }
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+ Clear floats after the columns 
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/*.wrapper {
+    width: 1280px;
+    margin: 100px auto;
+}
+
+.column_container {
+    width: 959px;
+    margin: 0 auto;
+}*/

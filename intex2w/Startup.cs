@@ -14,6 +14,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+using Microsoft.ML.OnnxRuntime;
 
 namespace intex2w
 {
@@ -29,15 +31,28 @@ namespace intex2w
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //var secretHolder = SecretAccess.GetSecret();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            string crash_string;
+            string identity_string;
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                crash_string = Configuration.GetConnectionString("CrashDB");
+                identity_string = Configuration.GetConnectionString("IdentityDB");
+            }
+            else
+            {
+                crash_string = Environment.GetEnvironmentVariable("db_connection_string");
+                identity_string = Environment.GetEnvironmentVariable("identity_connection_string");
+            }
+
+            
             services.AddDbContext<DBContext>(options => {
-                options.UseMySql(Configuration.GetConnectionString("CrashDB"),
+                options.UseMySql(crash_string,
                 mySqlOptions =>
                     mySqlOptions.EnableRetryOnFailure(
                         maxRetryCount: 10,
@@ -58,7 +73,8 @@ namespace intex2w
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
-                    Configuration.GetConnectionString("IdentityDB")));
+                    identity_string));
+
             services.AddDbContext<DBContext>(options => {
                 options.UseMySql(Configuration.GetConnectionString("CrashDB"),
                 mySqlOptions =>
@@ -72,6 +88,17 @@ namespace intex2w
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
+            });
+
+            services.AddSingleton<InferenceSession>(
+                new InferenceSession("winner3.onnx"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,6 +123,13 @@ namespace intex2w
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.Use(async (context, next) =>
+            { 
+                context.Response.Headers.Add("Content-Security-Policy", "style-src 'self'; img-src 'self';");
+                
+                await next();
+            });
 
             app.UseEndpoints(endpoints =>
             {
