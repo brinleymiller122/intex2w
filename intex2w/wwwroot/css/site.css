@@ -204,7 +204,8 @@ body {
 }
 
 .severity-summary ol {
-    width: 50%;
+    width: 40%;
     align-self: center;;
     text-align: left;
+    justify-content:center;
 }
