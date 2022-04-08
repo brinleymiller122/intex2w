@@ -174,10 +174,6 @@
                     {
                         <li>A driver was driving under the influence.</li>
                     }
-                    @if (Model.INTERSECTION_RELATED)
-                    {
-                        <li>The crash occured in or near an intersection.</li>
-                    }
                     @if (Model.WILD_ANIMAL_RELATED)
                     {
                         <li>A wild animal was involved.</li>
@@ -194,22 +190,6 @@
                     {
                         <li>A commercial vehicle was involved.</li>
                     }
-                    @if (Model.TEENAGE_DRIVER_INVOLVED)
-                    {
-                        <li>A teenage driver was involved.</li>
-                    }
-                    @if (Model.OLDER_DRIVER_INVOLVED)
-                    {
-                        <li>A driver over 64 was involved.</li>
-                    }
-                    @if (Model.NIGHT_DARK_CONDITION)
-                    {
-                        <li>The accident occured in the dark.</li>
-                    }
-                    @if (Model.SINGLE_VEHICLE)
-                    {
-                        <li>This accident involved only one vehicle.</li>
-                    }
                     @if (Model.DISTRACTED_DRIVING)
                     {
                         <li>The driver was distracted.</li>
@@ -217,10 +197,6 @@
                     @if (Model.DROWSY_DRIVING)
                     {
                         <li>The driver was drowsy.</li>
-                    }
-                    @if (Model.ROADWAY_DEPARTURE)
-                    {
-                        <li>The vehicle was yeeted off of the roadway.</li>
                     }
                 </ul>
             </div>
