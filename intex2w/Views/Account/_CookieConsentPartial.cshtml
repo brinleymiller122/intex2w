@@ -21,7 +21,8 @@
         (function () {
             var button = document.querySelector("#cookieConsent button[data-cookie-string]");
             button.addEventListener("click", function (event) {
-                document.cookie = button.dataset.cookieString;
+                console.log("cookie: " + button.dataset.cookieString)
+                document.cookie = ".AspNet.Consent=yes, expires=Sat, 08 Apr 2023 16:31:39 GMT, path=/, samesite=none"
                 console.log("Cookie Placed")
             }, false);
         })();

@@ -86,12 +86,12 @@ namespace intex2w
             services.AddRazorPages();
 
             //Adding HSTS to the Header
-            //services.AddHsts(options =>
-            //{
-            //    options.Preload = true;
-            //    options.IncludeSubDomains = true;
-            //    options.MaxAge = TimeSpan.FromDays(365);
-            //});
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
+            });
 
             services.AddSingleton<InferenceSession>(
                 new InferenceSession("winner3.onnx"));
