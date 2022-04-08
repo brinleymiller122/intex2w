@@ -265,8 +265,8 @@ namespace intex2w.Controllers
                 new KeyValuePair<string, string>("Morning Commute (6:00AM - 9:00AM)","06:00-09:00"),
                 new KeyValuePair<string, string>("Midday (9:00AM - 4:00PM)","09:00-16:00"),
                 new KeyValuePair<string, string>("Evening Commute (4:00PM - 7:00PM)","16:00-19:00"),
-                new KeyValuePair<string, string>("Night (7:00PM - 12:00PM)","19:00-24:00"),
-                new KeyValuePair<string, string>("Early Morning (12:00PM - 6:00AM)","00:00-6:00"),
+                new KeyValuePair<string, string>("Night (7:00PM - 12:00PM)","19:00-23:59"),
+                new KeyValuePair<string, string>("Early Morning (12:00PM - 6:00AM)","00:01-6:00"),
             };
 
             //ViewBag lists for dropdowns
