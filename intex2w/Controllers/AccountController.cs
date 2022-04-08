@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace intex2w.Controllers
 {
+    //Account controller to handle roles
     [Authorize(Roles = "Administrator")]
     public class AccountController : Controller
     {

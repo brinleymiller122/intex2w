@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-
+<!--Banner Picture-->
 <header class="masthead">
     <div class="container">
 
@@ -11,15 +11,6 @@
         <a class="btn redcolor btn-xl text-uppercase" asp-controller="Home" asp-action="Prevention">Crash Prevention Tips</a>
     </div>
 </header>
-
-@*<div class="container">
-        <center><img src="~/img/accident_final.JPG" alt="Car crash" style="width:75%;" /></center>
-
-    </div>*@
-
-
-
-
 
 <h1 class="goth pad cen">Are you safe on Utah roads?</h1>
 <div class="cen pad bigfont">
@@ -31,7 +22,7 @@
     <p>Learn about the dangers of driving in your city by selecting a city below.</p>
 </div>
 
-
+<!--Dropdown to select a city and see its top 5 causes of an accident-->
 <form method="get" asp-controller="Home" asp-action="Index" class="cen">
 
     <div>
@@ -43,7 +34,7 @@
                 if (city == ViewBag.selectedCity)
                 {
                     <option selected value="@city">@city</option>
-                    //@ViewBag.selectedCity = city;
+                    
                 }
                 else
                 {
@@ -73,6 +64,7 @@
     </div>
 }
 
+<!--Clickable images to other pages-->
 <center>
     <div class="pad4 button-container">
         <a asp-action="Crashes" asp-controller="Home"> <img class="pic" src="~/img/crashwords.jpg" /></a>

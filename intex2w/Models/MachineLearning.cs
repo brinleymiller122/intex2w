@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace intex2w.Models
 {
+    //Model for the fields in our Machine Learning Model
     public class MachineLearning
     {
         public float intersection_related { get; set; }

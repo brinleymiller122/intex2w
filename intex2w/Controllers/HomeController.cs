@@ -28,6 +28,7 @@ namespace intex2w.Controllers
             _session = session;
         }
 
+        //Home page
         [HttpGet]
         public IActionResult Index(string city=" ")
         {
@@ -201,15 +202,20 @@ namespace intex2w.Controllers
 
             return View();
         }
+
+        //Prevention page
         public IActionResult Prevention()
         {
             return View();
         }
+
+        //Regulations page
         public IActionResult Regulators()
         {
             return View();
         }
 
+        //Crash information that has pages and is filterable
         public IActionResult Crashes(int page = 1, string date = "", string city = " ", string county="", int severity = -1, string timeOfDay = "")
         {
             List<Crash> returnable = new List<Crash>();
@@ -259,7 +265,7 @@ namespace intex2w.Controllers
             {
                 ViewBag.crashes = new List<Crash>();
             }
-
+            //filtering by time
             List<KeyValuePair<string, string>> times = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("Morning Commute (6:00AM - 9:00AM)","06:00-09:00"),
@@ -288,6 +294,7 @@ namespace intex2w.Controllers
             return View();
         }
 
+        //Delete
         [Authorize(Roles="Administrator")]
         [HttpGet]
         public IActionResult Delete(int CRASH_ID)
@@ -305,6 +312,7 @@ namespace intex2w.Controllers
             return RedirectToAction("Crashes");
         }
 
+        //Edit Page
         [Authorize(Roles = "Administrator")]
         [HttpGet]
         public IActionResult Edit(int CRASH_ID = -1)
@@ -338,6 +346,7 @@ namespace intex2w.Controllers
 
         }
 
+        
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         public IActionResult Edit(Crash crash, string workZone)
@@ -368,6 +377,8 @@ namespace intex2w.Controllers
                 return View(crash);
             }
         }
+
+        //Add Crash
         [Authorize(Roles = "Administrator")]
         public IActionResult Add(Crash crash, string workZone)
         {
@@ -397,6 +408,7 @@ namespace intex2w.Controllers
             }
         }
 
+        //Machine Learning Page
         [HttpGet]
         public IActionResult Predictor(int CRASH_ID)
         {
@@ -409,7 +421,7 @@ namespace intex2w.Controllers
             return View(crash);
         }
 
-
+        //Scoring the model
         [HttpPost]
         public JsonResult Score(MachineLearning data)
         {

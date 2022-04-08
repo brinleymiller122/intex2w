@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace intex2w.Models
 {
+    //Crash Model
     public class Crash
     {
         [Key]

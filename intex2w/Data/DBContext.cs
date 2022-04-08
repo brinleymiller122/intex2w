@@ -12,7 +12,7 @@ namespace intex2w.Data
         public DBContext(DbContextOptions<DBContext> options) : base(options)
         {
         }
-
+        //Crashes DB
         public DbSet<Crash> crashes { get; set; }
     }
 }

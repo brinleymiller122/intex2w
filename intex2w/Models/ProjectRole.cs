@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace intex2w.Models
 {
+    //Role Model ;)
     public class ProjectRole
     {
         [Key]
