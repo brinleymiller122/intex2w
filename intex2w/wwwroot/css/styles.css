@@ -1,4 +1,16 @@
-﻿
+﻿.normallink {
+    text-decoration: none;
+    color: black;
+}
+
+.normallink:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.card:hover {
+    color: darkgrey;
+}
 
 .red {
     background: #8f2715;
