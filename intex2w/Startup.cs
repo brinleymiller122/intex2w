@@ -31,12 +31,14 @@ namespace intex2w
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Set up cookie policy
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //Set up connection strings
             string crash_string;
             string identity_string;
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
@@ -50,7 +52,7 @@ namespace intex2w
                 identity_string = Environment.GetEnvironmentVariable("identity_connection_string");
             }
 
-            
+            //Add our DB Context
             services.AddDbContext<DBContext>(options => {
                 options.UseMySql(crash_string,
                 mySqlOptions =>
