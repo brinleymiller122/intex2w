@@ -121,12 +121,12 @@ namespace intex2w
             app.UseAuthorization();
 
             //Adding CSP to the header
-            //app.Use(async (context, next) =>
-            //{ 
-            //    context.Response.Headers.Add("Content-Security-Policy", "style-src 'self'; img-src 'self';");
-                
-            //    await next();
-            //});
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("Content-Security-Policy", "style-src 'self'; img-src 'self';");
+
+                await next();
+            });
 
             app.UseEndpoints(endpoints =>
             {

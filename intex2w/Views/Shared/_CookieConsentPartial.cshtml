@@ -13,16 +13,16 @@
 <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
     <strong>Notice.</strong> DriveSafeUtah uses cookies to provide website functionality and improve <br />
     your experience. By using our website you agree to our <a href="~/img/GDPR-Privacy-Policy.pdf" target="_blank">Privacy Policy</a>.
-    <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
+    <button type="button" class="accept-policy close" onclick="acceptCookies();" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
         <span aria-hidden="true">Accept</span>
     </button>
 </div>
-    <script>
+    @*<script>
         (function () {
             var button = document.querySelector("#cookieConsent button[data-cookie-string]");
             button.addEventListener("click", function (event) {
                 document.cookie = button.dataset.cookieString;
             }, false);
         })();
-    </script>
+    </script>*@
 }

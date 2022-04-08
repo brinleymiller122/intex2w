@@ -94,3 +94,8 @@ function predictionUpdate() {
         }
     })
 }
+
+function acceptCookies() {
+    var button = document.querySelector("#cookieConsent button[data-cookie-string]");
+    document.cookie = button.dataset.cookieString;
+}
