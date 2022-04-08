@@ -28,7 +28,7 @@
 </div>
 
 <div class="cen goth pad2 medfont">
-    <p>Learn about the dangers of driving in your city, by selecting a city below.</p>
+    <p>Learn about the dangers of driving in your city by selecting a city below.</p>
 </div>
 
 
@@ -61,18 +61,20 @@
 
 @if (ViewBag.selectedCity != " " && ViewBag.selectedCity != null)
 {
-    <h3 class="cen text-uppercase pad3">Top 5 Causes of accidents in <span>@ViewBag.SelectedCity</span></h3>
-    <ol class="center">
-        @* Add a flex box *@
-        @foreach (var kvp in ViewBag.top5)
-        {
-            <li class="medfont">@kvp.Key</li>
-        }
-    </ol>
+    <div class="flex-list-stuffs">
+        <h3 class="cen text-uppercase pad3">Top 5 Causes of accidents in <span>@ViewBag.SelectedCity</span></h3>
+        <ol class="center">
+            @* Add a flex box *@
+            @foreach (var kvp in ViewBag.top5)
+            {
+                <li class="medfont">@kvp.Key</li>
+            }
+        </ol>
+    </div>
 }
 
 <center>
-    <div class="pad4">
+    <div class="pad4 button-container">
         <a asp-action="Crashes" asp-controller="Home"> <img class="pic" src="~/img/crashwords.jpg" /></a>
         <a asp-action="Prevention" asp-controller="Home"> <img class="pic" src="~/img/prevwords.jpg" /></a>
     </div>

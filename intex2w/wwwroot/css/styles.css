@@ -142,8 +142,6 @@ header.masthead .masthead-heading {
 .pic {
     height:200px;
     width:200px;
-    margin-right:80px;
-    padding-left:10px
 }
 
 .card {
@@ -174,3 +172,16 @@ header.masthead .masthead-heading {
     width: 959px;
     margin: 0 auto;
 }*/
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 80%;
+}
+
+.flex-list-stuffs {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
