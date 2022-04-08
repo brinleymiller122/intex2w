@@ -19,10 +19,10 @@
 </div>
     <script>
         (function () {
-            console.log("Cookie Placed")
             var button = document.querySelector("#cookieConsent button[data-cookie-string]");
             button.addEventListener("click", function (event) {
                 document.cookie = button.dataset.cookieString;
+                console.log("Cookie Placed")
             }, false);
         })();
     </script>
