@@ -212,3 +212,6 @@ body {
 .card:hover {
     color: black !important;
 }
+.text-small {
+    font-size: 11px;
+}
