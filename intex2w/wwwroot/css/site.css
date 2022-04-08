@@ -209,3 +209,6 @@ body {
     text-align: left;
     justify-content:center;
 }
+.card:hover {
+    color: black !important;
+}
