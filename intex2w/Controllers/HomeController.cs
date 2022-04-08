@@ -197,7 +197,7 @@ namespace intex2w.Controllers
                 }
             }
 
-            IEnumerable<KeyValuePair<string, int>> returnable = wzr.OrderBy(key => key.Value).Take(5);
+            IEnumerable<KeyValuePair<string, int>> returnable = wzr.OrderByDescending(key => key.Value).Take(5);
             ViewBag.top5 = returnable;
 
             return View();
